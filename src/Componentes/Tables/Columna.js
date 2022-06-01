@@ -1,9 +1,7 @@
 import React from "react";
 
-function Columna(props) {
+export function Columna(props) {
     return(
         <th>{props.columnName}</th>
     );
 }
-
-export{Columna};

@@ -11,14 +11,14 @@ import {
   import {Sensor} from "../../Components/Sensores/Sensor";
   import {Medicion} from "../../Components/Mediciones/Medicion";
 
-function Header() {
+export function Header() {
     return(
         <Router>
 
             <div>
                 <Navbar bg="dark" variant={"dark"} expand="lg">
                     <Container>
-                        <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
+                        <Navbar.Brand href="#home">Invernadero</Navbar.Brand>
                         <Navbar.Toggle aria-controls="basic-navbar-nav" />
                         <Navbar.Collapse id="basic-navbar-nav">
                             <Nav className="me-auto">
@@ -56,5 +56,3 @@ function Header() {
         </Router>
     );
 }
-
-export {Header};
