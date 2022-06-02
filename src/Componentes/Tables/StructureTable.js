@@ -59,8 +59,7 @@ export function StructureTable({setOpenDetailsModal, setDeviceDetails, setCreate
                       <Fila><td className="d-flex flex-column justify-content-center">{sensor.id}</td></Fila>
                     ))}
                   </tbody>
-                </Table>
-                
+                </Table>                
               </td>
               <td class="align-middle">
                 <Table>
