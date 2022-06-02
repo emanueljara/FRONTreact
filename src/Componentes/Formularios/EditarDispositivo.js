@@ -1,20 +1,26 @@
 import React from "react";
 import {Modal,Form, Row, ListGroup, Button } from "react-bootstrap"
 
-export function EditarDispositivo({setOpenDetailsModal, deviceDetails}) {
+export function EditarDispositivo({setOpenDetailsModal, actualDevice, setCreateSensorModal}) {
   var option = null;
-  const Col = "hola";
 
   const [show, setShow] = React.useState(true);
-  const [nameValue, setNameValue] = React.useState(deviceDetails.nombre);
-  const [locValue, setLocValue] = React.useState(deviceDetails.localizacion);
+  const [nameValue, setNameValue] = React.useState(actualDevice.nombre);
+  const [locValue, setLocValue] = React.useState(actualDevice.localizacion);
 
   const handleClose = () => {
     setShow(false);
     setOpenDetailsModal(false);
   }
 
+  const onOpenSensor = () => {
+    setShow(false);
+    setOpenDetailsModal(false);
+    setCreateSensorModal(true);
+  }
+
   const handleShow = () => setShow(true);
+
   const confimEliminacion = () => {
     option =  window.confirm("¿Seguro que desea eliminar los elementos?");
     if (option){
@@ -25,7 +31,7 @@ export function EditarDispositivo({setOpenDetailsModal, deviceDetails}) {
   return(
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
-        <Modal.Title>{deviceDetails.nombre}</Modal.Title>
+        <Modal.Title>{actualDevice.nombre}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form>
@@ -34,7 +40,7 @@ export function EditarDispositivo({setOpenDetailsModal, deviceDetails}) {
               <Form.Label>
                 <h5>Sensores</h5>
               </Form.Label>
-              {deviceDetails.sensor.map(sensor => (
+              {actualDevice.sensor.map(sensor => (
                 <ListGroup.Item action variant="info">
                   {sensor.tipo}
                   <Modal.Footer>
@@ -43,7 +49,7 @@ export function EditarDispositivo({setOpenDetailsModal, deviceDetails}) {
                 </ListGroup.Item>
               ))}
               <Modal.Footer>
-                <Button variant="outline-success" onClick={handleClose}>
+                <Button variant="outline-success" onClick={onOpenSensor}>
                 Añadir  Sensor</Button>
               </Modal.Footer>
             </Form.Group>
@@ -54,7 +60,7 @@ export function EditarDispositivo({setOpenDetailsModal, deviceDetails}) {
               <Form.Label>Id</Form.Label>
               <Form.Control 
                 type="text" 
-                placeholder={deviceDetails.id} 
+                placeholder={actualDevice.id} 
                 disabled
               />
             </Form.Group>

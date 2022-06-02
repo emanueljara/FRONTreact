@@ -6,11 +6,18 @@ export function CrearDispositivo({setCreateDeviceModal}) {
   const [show, setShow] = React.useState(true);
   const [nameValue, setNameValue] = React.useState('');
   const [locValue, setLocValue] = React.useState('');
+  const [addSensorCheck, setAddSensorCheck] = React.useState(false);
 
   const handleClose = () => {
     setShow(false);
     setCreateDeviceModal(false);
   }
+
+  //Crear dispositivo. Verificar si el check está activado o no y realizar la función correspondiente. No he podido saber como acceder a ese valor :c
+  const onCreateDevice = () => {
+
+  }
+
   const handleShow = () => setShow(true);
   return(
     <Modal show={show} onHide={handleClose}>
@@ -48,7 +55,7 @@ export function CrearDispositivo({setCreateDeviceModal}) {
 
       <Modal.Footer>
         <Button variant="outline-danger" onClick={handleClose}>Cancelar</Button>
-        <Button variant="outline-success" onClick={handleClose}>Crear</Button>
+        <Button variant="outline-success" onClick={onCreateDevice}>Crear</Button>
       </Modal.Footer>
     </Modal>
   );

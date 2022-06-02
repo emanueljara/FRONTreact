@@ -3,15 +3,24 @@ import React from "react";
 export function useModal(){
 
   const [openDetailsModal, setOpenDetailsModal] = React.useState(false);
-  const [deviceDetails, setDeviceDetails] = React.useState({});
+  const [actualDevice, setActualDevice] = React.useState({});
   const [createDeviceModal, setCreateDeviceModal] = React.useState(false);
+  const [createSensorModal, setCreateSensorModal] = React.useState(false);
+  const [showMenuMeasures, setShowMenuMeasures] = React.useState(false);
+  const [showMeasurements, setShowMeasurements] = React.useState(false);
 
   return {
     openDetailsModal,
     setOpenDetailsModal,
-    deviceDetails,
-    setDeviceDetails,
+    actualDevice,
+    setActualDevice,
     createDeviceModal,
-    setCreateDeviceModal
+    setCreateDeviceModal,
+    createSensorModal,
+    setCreateSensorModal,
+    showMenuMeasures,
+    setShowMenuMeasures,
+    showMeasurements,
+    setShowMeasurements
   }
 }

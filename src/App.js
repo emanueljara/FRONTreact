@@ -1,10 +1,11 @@
 import './App.css';
 import { Header } from './Componentes/Nav/Header';
-//import { TableBuild } from "./Components/Table/TableBuild";
 import { StructureTable } from "./Componentes/Tables/StructureTable"
 import {CrearDispositivo} from "./Componentes/Formularios/CrearDispositivo";
 import {EditarDispositivo} from "./Componentes/Formularios/EditarDispositivo";
+import { CrearSensor } from './Componentes/Formularios/CrearSensor';
 import { useModal } from './hooks/useModal';
+import { VerMediciones } from './Componentes/Formularios/VerMediciones';
 
 import { GraficaLineas } from "./Componentes/Graficas/GraficaLineas";
 
@@ -13,38 +14,70 @@ function App() {
   const {
     openDetailsModal,
     setOpenDetailsModal,
-    setDeviceDetails,
-    deviceDetails,
+    setActualDevice,
+    actualDevice,
     createDeviceModal,
-    setCreateDeviceModal
+    setCreateDeviceModal,
+    createSensorModal,
+    setCreateSensorModal,
+    showMenuMeasures,
+    setShowMenuMeasures,
+    showMeasurements,
+    setShowMeasurements
   } = useModal();
 
-  return (
-    <div className="App">
-      <Header/>
+  if(!showMeasurements){
+    return (
+      <div className="App">
+        <Header/>
 
-      {openDetailsModal &&(
-        <EditarDispositivo 
+        {openDetailsModal &&(
+          <EditarDispositivo 
+            setOpenDetailsModal={setOpenDetailsModal}
+            actualDevice={actualDevice}
+            setCreateSensorModal={setCreateSensorModal}
+          />
+        )}
+        
+        {createDeviceModal && (
+          <CrearDispositivo
+            setCreateDeviceModal={setCreateDeviceModal}
+          />
+        )}
+
+        {createSensorModal && (
+          <CrearSensor 
+            setCreateSensorModal={setCreateSensorModal}
+            actualDevice={actualDevice}
+            setOpenDetailsModal={setOpenDetailsModal}
+          />
+        )}
+
+        {showMenuMeasures && (
+          <VerMediciones
+            setShowMenuMeasures={setShowMenuMeasures}
+            setShowMeasurements={setShowMeasurements}
+          />
+        )}
+
+        <StructureTable 
           setOpenDetailsModal={setOpenDetailsModal}
-          deviceDetails={deviceDetails}
-        />
-      )}
-      
-      {createDeviceModal && (
-        <CrearDispositivo
+          setActualDevice={setActualDevice}
           setCreateDeviceModal={setCreateDeviceModal}
+          setShowMenuMeasures={setShowMenuMeasures}
         />
-      )}
 
-      <StructureTable 
-        setOpenDetailsModal={setOpenDetailsModal}
-        setDeviceDetails={setDeviceDetails}
-        setCreateDeviceModal={setCreateDeviceModal}
-      />
-
-      <GraficaLineas/>
-    </div>
-  );
+        {/* <GraficaLineas/> */}
+      </div>
+    );
+  } else if (showMeasurements){
+    return(
+      <div>
+        <Header/>
+        <GraficaLineas/>
+      </div>
+    );
+  }
 }
 
 export default App;
