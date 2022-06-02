@@ -1,10 +1,13 @@
 import React from "react";
 import {Modal,Form, Row, ListGroup, Button } from "react-bootstrap"
 
-export function EditarDispositivo({setOpenDetailsModal, idDetails}) {
+export function EditarDispositivo({setOpenDetailsModal, deviceDetails}) {
   var option = null;
   const Col = "hola";
+
   const [show, setShow] = React.useState(true);
+  const [nameValue, setNameValue] = React.useState(deviceDetails.nombre);
+  const [locValue, setLocValue] = React.useState(deviceDetails.localizacion);
 
   const handleClose = () => {
     setShow(false);
@@ -22,31 +25,23 @@ export function EditarDispositivo({setOpenDetailsModal, idDetails}) {
   return(
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
-        <Modal.Title>Ver Detalle {idDetails}</Modal.Title>
+        <Modal.Title>{deviceDetails.nombre}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form>
           <Row className="mb-3">              
             <Form.Group  controlId="formGridState">
-              <Form.Label>Sensores</Form.Label>
-              <ListGroup.Item action variant="info">
-                sensor1
-                <Modal.Footer>
-                  <Button variant="outline-danger" onClick={confimEliminacion}>Eliminar</Button>
-                </Modal.Footer>
-              </ListGroup.Item>
-              <ListGroup.Item action variant="info">
-                sensor2
-                <Modal.Footer>
-                  <Button variant="outline-danger" onClick={confimEliminacion}>Eliminar</Button>
-                </Modal.Footer>
-              </ListGroup.Item>
-              <ListGroup.Item action variant="info">
-                sensor3
-                <Modal.Footer>
-                  <Button variant="outline-danger" onClick={confimEliminacion}>Eliminar</Button>
-                </Modal.Footer>
-              </ListGroup.Item>
+              <Form.Label>
+                <h5>Sensores</h5>
+              </Form.Label>
+              {deviceDetails.sensor.map(sensor => (
+                <ListGroup.Item action variant="info">
+                  {sensor.tipo}
+                  <Modal.Footer>
+                    <Button variant="outline-danger" onClick={confimEliminacion}>Eliminar</Button>
+                  </Modal.Footer>
+                </ListGroup.Item>
+              ))}
               <Modal.Footer>
                 <Button variant="outline-success" onClick={handleClose}>
                 Añadir  Sensor</Button>
@@ -57,15 +52,29 @@ export function EditarDispositivo({setOpenDetailsModal, idDetails}) {
           <Row className="mb-3">
             <Form.Group as={Col} controlId="formGridEmail">
               <Form.Label>Id</Form.Label>
-              <Form.Control type="text" placeholder="Id" disabled />
+              <Form.Control 
+                type="text" 
+                placeholder={deviceDetails.id} 
+                disabled
+              />
             </Form.Group>
             <Form.Group as={Col} controlId="formGridEmail">
               <Form.Label>Nombre</Form.Label>
-              <Form.Control type="text" placeholder="Dispositivo" />
+              <Form.Control 
+                type="text" 
+                value={nameValue}
+                placeholder="Nombre"
+                onChange={event => setNameValue(event.target.value)}
+              />
             </Form.Group>
             <Form.Group as={Col} controlId="formGridEmail">
               <Form.Label>Localizacion</Form.Label>
-              <Form.Control type="text" placeholder="Localizacion" />            
+              <Form.Control 
+                type="text"
+                value={locValue}
+                placeholder="Localización"
+                onChange={event => setLocValue(event.target.value)}
+              />
             </Form.Group>
           </Row>
         </Form>
