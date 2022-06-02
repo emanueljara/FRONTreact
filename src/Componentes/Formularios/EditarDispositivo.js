@@ -49,8 +49,8 @@ export function EditarDispositivo({setOpenDetailsModal, deviceDetails}) {
             </Form.Group>
           </Row>
 
-          <Row className="mb-3">
-            <Form.Group as={Col} controlId="formGridEmail">
+          <Row className="mb-3 d-flex flex-row justify-content-center">
+            <Form.Group controlId="formGridEmail">
               <Form.Label>Id</Form.Label>
               <Form.Control 
                 type="text" 
@@ -58,7 +58,7 @@ export function EditarDispositivo({setOpenDetailsModal, deviceDetails}) {
                 disabled
               />
             </Form.Group>
-            <Form.Group as={Col} controlId="formGridEmail">
+            <Form.Group controlId="formGridEmail">
               <Form.Label>Nombre</Form.Label>
               <Form.Control 
                 type="text" 
@@ -67,7 +67,7 @@ export function EditarDispositivo({setOpenDetailsModal, deviceDetails}) {
                 onChange={event => setNameValue(event.target.value)}
               />
             </Form.Group>
-            <Form.Group as={Col} controlId="formGridEmail">
+            <Form.Group controlId="formGridEmail">
               <Form.Label>Localizacion</Form.Label>
               <Form.Control 
                 type="text"
