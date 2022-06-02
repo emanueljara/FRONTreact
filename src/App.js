@@ -6,6 +6,8 @@ import { StructureTable } from "./Componentes/Tables/StructureTable"
 import {EditarDispositivo} from "./Componentes/Formularios/EditarDispositivo";
 import { useModal } from './hooks/useModal';
 
+import { GraficaLineas } from "./Componentes/Graficas/GraficaLineas";
+
 function App() {
 
   const {
@@ -30,6 +32,8 @@ function App() {
         setOpenDetailsModal={setOpenDetailsModal}
         setIdDetails={setIdDetails}
       />
+
+      <GraficaLineas/>
     </div>
   );
 }

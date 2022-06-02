@@ -7,10 +7,6 @@ import {
     Link
   } from "react-router-dom";
 
-  import {Dispositivo} from "../../Components/Dispositivo/Dispositivo";
-  import {Sensor} from "../../Components/Sensores/Sensor";
-  import {Medicion} from "../../Components/Mediciones/Medicion";
-
 export function Header() {
     return(
         <Router>
@@ -47,9 +43,9 @@ export function Header() {
             </div>
             <div>
             <Routes>
-                <Route exact path="/Dispositivos" element={<Dispositivo/>}/>
-                <Route exact path="/Sensores" element={<Sensor/>}/>
-                <Route exact path="/Mediciones" element={<Medicion/>}/>
+                {/*<Route exact path="/Dispositivos" element={}/>*/}
+                {/*<Route exact path="/Sensores" element={}/>*/}
+                {/*<Route exact path="/Mediciones" element={}/>*/}
                 
             </Routes>
             </div>
