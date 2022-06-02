@@ -2,7 +2,7 @@ import './App.css';
 import { Header } from './Componentes/Nav/Header';
 //import { TableBuild } from "./Components/Table/TableBuild";
 import { StructureTable } from "./Componentes/Tables/StructureTable"
-//import {CrearDispositivo} from "./Componentes/Formularios/CrearDispositivo";
+import {CrearDispositivo} from "./Componentes/Formularios/CrearDispositivo";
 import {EditarDispositivo} from "./Componentes/Formularios/EditarDispositivo";
 import { useModal } from './hooks/useModal';
 
@@ -11,8 +11,10 @@ function App() {
   const {
     openDetailsModal,
     setOpenDetailsModal,
-    setIdDetails,
-    idDetails
+    setDeviceDetails,
+    deviceDetails,
+    createDeviceModal,
+    setCreateDeviceModal
   } = useModal();
 
   return (
@@ -22,13 +24,20 @@ function App() {
       {openDetailsModal &&(
         <EditarDispositivo 
           setOpenDetailsModal={setOpenDetailsModal}
-          idDetails={idDetails}
+          deviceDetails={deviceDetails}
+        />
+      )}
+      
+      {createDeviceModal && (
+        <CrearDispositivo
+          setCreateDeviceModal={setCreateDeviceModal}
         />
       )}
 
       <StructureTable 
         setOpenDetailsModal={setOpenDetailsModal}
-        setIdDetails={setIdDetails}
+        setDeviceDetails={setDeviceDetails}
+        setCreateDeviceModal={setCreateDeviceModal}
       />
     </div>
   );

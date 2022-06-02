@@ -1,9 +1,12 @@
 import React from "react";
 import {Modal, Form, Button} from "react-bootstrap";
 
-function CrearDispositivo(props) {
+function CrearDispositivo({setCreateDeviceModal}) {
     const [show, setShow] = React.useState(true);
-    const handleClose = () => setShow(false);
+    const handleClose = () => {
+        setShow(false);
+        setCreateDeviceModal(false);
+    }
     const handleShow = () => setShow(true);
     return(
         <Modal show={show} onHide={handleClose}>
@@ -18,8 +21,8 @@ function CrearDispositivo(props) {
                     <Form.Control type="email" placeholder="Digite Nombre" />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formGroupLocalizacion">
-                    <Form.Label>Localizacion</Form.Label>
-                    <Form.Control type="email" placeholder="Digite Localizacion" />
+                    <Form.Label>Localización</Form.Label>
+                    <Form.Control type="email" placeholder="Digite Localización" />
                 </Form.Group>
                 <Form.Check 
                   type="switch"

@@ -11,11 +11,15 @@ const defaultData = [{id:1, nombre:"Name 1", localizacion: "Invernadero 1", sens
 {id:3, nombre:"Name 3", localizacion: "Invernadero 3", sensor:[{id: 3.1, tipo: "Humedad"}, {id: 3.2, tipo: "Temperatura"}, {id: 3.3, tipo: "Intensidad lumínica"}]}];
 
 
-export function StructureTable({setOpenDetailsModal, setIdDetails}) {
+export function StructureTable({setOpenDetailsModal, setDeviceDetails, setCreateDeviceModal}) {
 
-  const onOpenModal = (id)=>{
+  const onOpenDetailsModal = (details)=>{
     setOpenDetailsModal(true);
-    setIdDetails(id);
+    setDeviceDetails(details);
+  }
+
+  const onCreateDevice = () => {
+    setCreateDeviceModal(true);
   }
   
   return(
@@ -24,6 +28,7 @@ export function StructureTable({setOpenDetailsModal, setIdDetails}) {
         <Button 
           className="float-end" 
           variant="outline-success"
+          onClick={onCreateDevice}
         >Crear Dipositivo</Button>
       </div>
       
@@ -70,7 +75,7 @@ export function StructureTable({setOpenDetailsModal, setIdDetails}) {
               <td class="align-middle">
                 <Button
                   variant="outline-info"
-                  onClick={() => onOpenModal(data.id)}
+                  onClick={() => onOpenDetailsModal(data)}
                 >Ver detalle</Button>
               </td>
               <td class="align-middle">

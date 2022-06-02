@@ -3,12 +3,15 @@ import React from "react";
 export function useModal(){
 
   const [openDetailsModal, setOpenDetailsModal] = React.useState(false);
-  const [idDetails, setIdDetails] = React.useState(0);
+  const [deviceDetails, setDeviceDetails] = React.useState({});
+  const [createDeviceModal, setCreateDeviceModal] = React.useState(false);
 
   return {
     openDetailsModal,
     setOpenDetailsModal,
-    idDetails,
-    setIdDetails
+    deviceDetails,
+    setDeviceDetails,
+    createDeviceModal,
+    setCreateDeviceModal
   }
 }
