@@ -11,14 +11,22 @@ export function Dispositos() {
     }
     const urlBase = "localhost:3000/controlDevice/";
     const getAllDevice = ()=>{
-        /*axios.get(urlBase+"controlDevice/getAll").then(response=> {
+        /*axios.get(urlBase+"getAll").then(response=> {
             console.log(response.data);
             this.setState({data:rensponse.data})
         })*/
         return axios.get(urlBase+"getAll");
     }
 
-    const crearDispositivo = async ()=>{
+    const getOneByName = ()=>{
+        return axios.get(urlBase+"getByName/"+this.state.form.nameDevice);
+    }
+
+    const getAllDeviceInOneLocation = ()=>{
+        return axios.get(urlBase+"getByLocation/"+this.state.form.locationDescription);
+    }
+
+    const createDevice = async ()=>{
         await axios.post(urlBase + "create", this.state.form).then(response =>{
             //this.getAllDevice
         }).catch(error =>{
@@ -26,13 +34,13 @@ export function Dispositos() {
         })
     }
 
-    const ActualizarDispositivo = () =>{
+    const updateDevice = () =>{
         axios.put(urlBase+"updateDeviceByName/"+this.state.form.nameDevice, this.state.form).then(respons =>{
             this.getAllDevice()
         })
     }
 
-    const EliminarDispositivo = ()=>{
+    const deleteDevice = ()=>{
         axios.delete(urlBase + "deleteDeviceByName/"+ this.state.form.nameDevice).then(response =>{
             
         })
