@@ -25,13 +25,6 @@ export function Mediciones() {
         return axios.get(urlBase+"getOne/"+this.state.form.idSensor);
     }
 
-    const createMeassurement = ()=>{
-        await axios.post(urlBase + "create", this.state.form).then(response =>{
-            //this.getAllDevice
-        }).catch(error =>{
-            console.log(error);
-        })
-    }
 
     const deleteAllMeassurement = ()=>{
         axios.delete(urlBase + "AllOfSensorOfOneDevice?idSensors="+ this.state.form.idSensor).then(response =>{
