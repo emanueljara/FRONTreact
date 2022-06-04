@@ -1,7 +1,7 @@
 import React from "react";
 import {Modal, Form, Button} from "react-bootstrap";
 
-export function CrearDispositivo({setCreateDeviceModal}) {
+export function CrearDispositivo({setCreateDeviceModal, setCreateSensorModal}) {
   
   const [show, setShow] = React.useState(true);
   const [nameValue, setNameValue] = React.useState('');
@@ -13,9 +13,19 @@ export function CrearDispositivo({setCreateDeviceModal}) {
     setCreateDeviceModal(false);
   }
 
-  //Crear dispositivo. Verificar si el check está activado o no y realizar la función correspondiente. No he podido saber como acceder a ese valor :c
+  //Crear dispositivo. Verificar si el check está activado o no y realizar la función correspondiente.
   const onCreateDevice = () => {
+    //Petición para crear un nuevo dispositivo
+    //code
 
+
+    if(addSensorCheck){
+      setCreateSensorModal(true);
+      setShow(false);
+      setCreateDeviceModal(false);
+    } else {
+      handleClose();
+    }
   }
 
   const handleShow = () => setShow(true);
@@ -49,6 +59,8 @@ export function CrearDispositivo({setCreateDeviceModal}) {
             type="switch"
             id="custom-switch"
             label="Añadir Sensores"
+            onChange={event => setAddSensorCheck(event.target.checked)}
+            
           />
         </Form>
       </Modal.Body>

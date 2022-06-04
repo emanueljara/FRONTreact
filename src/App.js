@@ -25,7 +25,8 @@ function App() {
     showMeasurements,
     setShowMeasurements,
     selecTypeSearch,
-    setSelecTypeSearch
+    setSelecTypeSearch,
+    allDevice
   } = useModal();
 
   if(!showMeasurements){
@@ -45,6 +46,7 @@ function App() {
         {createDeviceModal && (
           <CrearDispositivo
             setCreateDeviceModal={setCreateDeviceModal}
+            setCreateSensorModal={setCreateSensorModal}
           />
         )}
 
@@ -68,6 +70,7 @@ function App() {
           setActualDevice={setActualDevice}
           setCreateDeviceModal={setCreateDeviceModal}
           setShowMenuMeasures={setShowMenuMeasures}
+          allDevice={allDevice}
         />
 
         {/* <GraficaLineas/> */}

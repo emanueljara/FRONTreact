@@ -1,7 +1,7 @@
 import React from "react";
 import { ButtonGroup, ToggleButton } from "react-bootstrap";
 
-function TogglearButton({selecTypeSearch,setSelecTypeSearch}) {
+export function TogglearButton({selecTypeSearch,setSelecTypeSearch}) {
   //const [checked, setChecked] = React.useState(false);
   //const [radioValue, setRadioValue] = React.useState('1');
 
@@ -13,14 +13,14 @@ function TogglearButton({selecTypeSearch,setSelecTypeSearch}) {
   ];
 
   return (
-    <>
+    <div>
       <ButtonGroup>
         {radios.map((radio, idx) => (
           <ToggleButton
             key={idx}
             id={`radio-${idx}`}
             type="radio"
-            variant={idx % 2 ? 'outline-success' : 'outline-success'}
+            variant='outline-success'
             name="radio"
             value={radio.value}
             checked={selecTypeSearch === radio.value}
@@ -31,8 +31,6 @@ function TogglearButton({selecTypeSearch,setSelecTypeSearch}) {
           </ToggleButton>
         ))}
       </ButtonGroup>
-    </>
+    </div>
   );
 }
-
-export {TogglearButton};

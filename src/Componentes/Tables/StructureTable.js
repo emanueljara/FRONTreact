@@ -7,12 +7,12 @@ import {Dispositivos} from "./../../Peticiones/Dispositivos"
 
 
 const defaulColumn=['id dispositivo','nombre','Localizacion', 'id sensor','sensores'];
-const defaultData = [{id:1, nombre:"Name 1", localizacion: "Invernadero 1", sensor:[{id: 1.1, tipo: "Humedad"}, {id: 1.2, tipo: "Temperatura"}, {id: 1.3, tipo: "Intensidad lumínica"}, {id: 1.4, tipo: "Proximidad"}]},
+var defaultData = [{id:1, nombre:"Name 1", localizacion: "Invernadero 1", sensor:[{id: 1.1, tipo: "Humedad"}, {id: 1.2, tipo: "Temperatura"}, {id: 1.3, tipo: "Intensidad lumínica"}, {id: 1.4, tipo: "Proximidad"}]},
 {id:2, nombre:"Name 2", localizacion: "Invernadero 2", sensor:[{id: 2.1, tipo: "Humedad"}, {id: 2.2, tipo: "Temperatura"}, {id: 2.3, tipo: "Intensidad lumínica"}]},
 {id:3, nombre:"Name 3", localizacion: "Invernadero 3", sensor:[{id: 3.1, tipo: "Humedad"}, {id: 3.2, tipo: "Temperatura"}, {id: 3.3, tipo: "Intensidad lumínica"}]}];
 
 
-export function StructureTable({setOpenDetailsModal, setActualDevice, setCreateDeviceModal, setShowMenuMeasures}) {
+export function StructureTable({setOpenDetailsModal, setActualDevice, setCreateDeviceModal, setShowMenuMeasures, allDevice}) {
   const {getAllDevice} = Dispositivos();
   const onOpenDetailsModal = (details)=>{
     setOpenDetailsModal(true);
@@ -31,6 +31,13 @@ export function StructureTable({setOpenDetailsModal, setActualDevice, setCreateD
       //code
     }
   }
+
+  React.useEffect(()=>{
+    Promise.race([getAllDevice()]).then(() => {
+      console.log('Peticion');
+      defaultData = allDevice;
+    }).catch(e => console.log(e));
+  });
   
   return(
     <Container className="mt-3">

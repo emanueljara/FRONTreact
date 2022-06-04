@@ -1,9 +1,11 @@
 import React from "react";
 import { Form } from "react-bootstrap";
 
-function Selector() {
+export function Selector({selecTypeSearch}) {
+
+    
     return(
-        <Form.Select aria-label="Default select example">
+        <Form.Select disabled={selecTypeSearch === '1' ? false: true}>
             <option>Escoger tipo de sensor</option>
             <option value="1">Humedad</option>
             <option value="2">Temperatura</option>
@@ -11,5 +13,3 @@ function Selector() {
         </Form.Select>
     );
 }
-
-export {Selector};
