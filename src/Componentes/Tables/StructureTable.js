@@ -1,9 +1,10 @@
 import React from "react";
-import { Table, Container } from "reactstrap"; //, Modal, ModalBody, FormGroup, ModalFooter
+import { Table, Container } from "reactstrap"; 
 import {Fila} from "./Fila";
 import {Columna} from "./Columna"
-//import { Agregar } from "./../Buttons/Agregar";
-import {Button} from "react-bootstrap"; //ListGroup,
+import {Button} from "react-bootstrap"; 
+import {Dispositivos} from "./../../Peticiones/Dispositivos"
+
 
 const defaulColumn=['id dispositivo','nombre','Localizacion', 'id sensor','sensores'];
 const defaultData = [{id:1, nombre:"Name 1", localizacion: "Invernadero 1", sensor:[{id: 1.1, tipo: "Humedad"}, {id: 1.2, tipo: "Temperatura"}, {id: 1.3, tipo: "Intensidad lumínica"}, {id: 1.4, tipo: "Proximidad"}]},
@@ -12,14 +13,15 @@ const defaultData = [{id:1, nombre:"Name 1", localizacion: "Invernadero 1", sens
 
 
 export function StructureTable({setOpenDetailsModal, setActualDevice, setCreateDeviceModal, setShowMenuMeasures}) {
-
+  const {getAllDevice} = Dispositivos();
   const onOpenDetailsModal = (details)=>{
     setOpenDetailsModal(true);
     setActualDevice(details);
   }
 
-  const onCreateDevice = () => {
+  const onCreateDevice =  () => {
     setCreateDeviceModal(true);
+    console.log(getAllDevice());
   }
 
   //Eliminar dispositivo

@@ -8,6 +8,7 @@ export function useModal(){
   const [createSensorModal, setCreateSensorModal] = React.useState(false);
   const [showMenuMeasures, setShowMenuMeasures] = React.useState(false);
   const [showMeasurements, setShowMeasurements] = React.useState(false);
+  const [selecTypeSearch, setSelecTypeSearch ] = React.useState('2');
 
   return {
     openDetailsModal,
@@ -21,6 +22,8 @@ export function useModal(){
     showMenuMeasures,
     setShowMenuMeasures,
     showMeasurements,
-    setShowMeasurements
+    setShowMeasurements,
+    selecTypeSearch,
+    setSelecTypeSearch
   }
 }

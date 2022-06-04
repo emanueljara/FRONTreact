@@ -1,21 +1,53 @@
 import React from "react";
-import {axios} from "axios";
+import axios from "axios";
  
 
-export function Dispositos() {
-    state={
+export function Dispositivos() {
+   const state={
         form:{
             nameDevice: "",
             locationDescription: ""
         }
     }
-    const urlBase = "localhost:3000/controlDevice/";
-    const getAllDevice = ()=>{
+
+    let headers = {
+        //"User-Agent": "PostmanRuntime/7.29.0",
+        //Accept: "*/*",
+        //"Postman-Token":"6476c5e9-f72e-4ef4-841f-ed9a483f328c",
+        //Host:"localhost:3000",
+        //"Accept-Encoding":"gzip, deflate, br",
+        //Connection:"keep-alive"
+        //"Accept-Encoding":"keep-alive"
+        'Content-type': 'text/html; charset=UTF-8'
+
+    };
+
+    const urlBase = "http://localhost:3000/controlDevice/";
+
+
+    const getFetch= async()=>{
+        try {
+            const response = await fetch(urlBase+"getAll");
+            console.log(response);
+            const data = await response.data;
+            console.log({ data });
+          }
+          catch (e) {
+            console.log(e);
+          }
+    } 
+
+    const getAllDevice = async ()=>{
         /*axios.get(urlBase+"getAll").then(response=> {
             console.log(response.data);
             this.setState({data:rensponse.data})
         })*/
-        return axios.get(urlBase+"getAll");
+        //,{headers: headers}
+        await axios.get(urlBase+"getAll").then(res =>{
+            console.log(res.data);
+        }).catch(error =>{
+            console.log(error);
+        });
     }
 
     const getOneByName = ()=>{
@@ -47,7 +79,7 @@ export function Dispositos() {
     }
 
 
-    return{getAllDevice};
+    return{getAllDevice, getFetch};
 }
 
 /*<Modal>

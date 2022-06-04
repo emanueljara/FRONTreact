@@ -1,9 +1,9 @@
 import React from "react";
 import { ButtonGroup, ToggleButton } from "react-bootstrap";
 
-function togglearButton() {
-  const [checked, setChecked] = useState(false);
-  const [radioValue, setRadioValue] = useState('1');
+function TogglearButton({selecTypeSearch,setSelecTypeSearch}) {
+  //const [checked, setChecked] = React.useState(false);
+  //const [radioValue, setRadioValue] = React.useState('1');
 
   const radios = [
     { name: 'Tipo Sensor', value: '1' },
@@ -23,10 +23,11 @@ function togglearButton() {
             variant={idx % 2 ? 'outline-success' : 'outline-success'}
             name="radio"
             value={radio.value}
-            checked={radioValue === radio.value}
-            onChange={(e) => setRadioValue(e.currentTarget.value)}
+            checked={selecTypeSearch === radio.value}
+            onChange={(e) => setSelecTypeSearch(e.currentTarget.value)}
           >
             {radio.name}
+            
           </ToggleButton>
         ))}
       </ButtonGroup>
@@ -34,4 +35,4 @@ function togglearButton() {
   );
 }
 
-export {togglearButton};
+export {TogglearButton};

@@ -23,13 +23,16 @@ function App() {
     showMenuMeasures,
     setShowMenuMeasures,
     showMeasurements,
-    setShowMeasurements
+    setShowMeasurements,
+    selecTypeSearch,
+    setSelecTypeSearch
   } = useModal();
 
   if(!showMeasurements){
     return (
       <div className="App">
-        <Header/>
+        <Header selecTypeSearch={selecTypeSearch}
+         setSelecTypeSearch={setSelecTypeSearch}/>
 
         {openDetailsModal &&(
           <EditarDispositivo 

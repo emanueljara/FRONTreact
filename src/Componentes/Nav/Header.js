@@ -7,7 +7,9 @@ import {
     Link
   } from "react-router-dom";
 
-export function Header() {
+import {TogglearButton} from "../Buttons/TogglearButton";
+
+export function Header({selecTypeSearch,setSelecTypeSearch}) {
   return(
     <Router>
       <div>
@@ -26,7 +28,10 @@ export function Header() {
                 <NavDropdown.Divider />
                 <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
                 </NavDropdown>
+                <TogglearButton selecTypeSearch={selecTypeSearch}
+                                setSelecTypeSearch={setSelecTypeSearch}/>
               </Nav>
+              
               <Form className="d-flex">
                 <FormControl
                   type="search"
