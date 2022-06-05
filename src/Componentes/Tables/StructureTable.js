@@ -3,16 +3,20 @@ import { Table, Container } from "reactstrap";
 import {Fila} from "./Fila";
 import {Columna} from "./Columna"
 import {Button} from "react-bootstrap"; 
-import {Dispositivos} from "./../../Peticiones/Dispositivos"
+import {Dispositivos} from "./../../Peticiones/Dispositivos";
 
 
 const defaulColumn=['id dispositivo','nombre','Localizacion', 'id sensor','sensores'];
-var defaultData = [{id:1, nombre:"Name 1", localizacion: "Invernadero 1", sensor:[{id: 1.1, tipo: "Humedad"}, {id: 1.2, tipo: "Temperatura"}, {id: 1.3, tipo: "Intensidad lumínica"}, {id: 1.4, tipo: "Proximidad"}]},
+const defaultData = [{id:1, nombre:"Name 1", localizacion: "Invernadero 1", sensor:[{id: 1.1, tipo: "Humedad"}, {id: 1.2, tipo: "Temperatura"}, {id: 1.3, tipo: "Intensidad lumínica"}, {id: 1.4, tipo: "Proximidad"}]},
 {id:2, nombre:"Name 2", localizacion: "Invernadero 2", sensor:[{id: 2.1, tipo: "Humedad"}, {id: 2.2, tipo: "Temperatura"}, {id: 2.3, tipo: "Intensidad lumínica"}]},
 {id:3, nombre:"Name 3", localizacion: "Invernadero 3", sensor:[{id: 3.1, tipo: "Humedad"}, {id: 3.2, tipo: "Temperatura"}, {id: 3.3, tipo: "Intensidad lumínica"}]}];
-
+// var datos;
 
 export function StructureTable({setOpenDetailsModal, setActualDevice, setCreateDeviceModal, setShowMenuMeasures, allDevice}) {
+  
+  const [devices, setDevices] = React.useState(defaultData);
+  const [reload, setReload] = React.useState(false);
+
   const {getAllDevice} = Dispositivos();
   const onOpenDetailsModal = (details)=>{
     setOpenDetailsModal(true);
@@ -32,12 +36,40 @@ export function StructureTable({setOpenDetailsModal, setActualDevice, setCreateD
     }
   }
 
+  const objectToList = (data) => {
+    let list = [];
+    for (let i = 0; i < data.length; i++) {
+      list.push(data[i]);
+    }
+
+    return list;
+  }
+
   React.useEffect(()=>{
-    Promise.race([getAllDevice()]).then(() => {
-      console.log('Peticion');
-      defaultData = allDevice;
-    }).catch(e => console.log(e));
-  });
+    function fetchData(){
+      getAllDevice().then(res =>{
+        console.log('Entró');
+        if(res.data.length !== 0){
+          let datos = objectToList(res.data);
+          
+          // console.log('-----', datos);
+          // console.log(data);
+          setDevices({datos1: datos});
+          // console.log(devices);
+          devices.datos1.map(val => console.log(val.nameDevice));
+          // console.log(devices.datos1);
+          // console.log(typeof(datos));
+        }
+      });      
+    }
+    fetchData();
+  }, [reload]);
+
+  setInterval(() => {
+    if(!reload){
+      setReload(!reload);
+    }
+  }, 10000);
   
   return(
     <Container className="mt-3">
@@ -58,7 +90,7 @@ export function StructureTable({setOpenDetailsModal, setActualDevice, setCreateD
           </tr>
         </thead>
         <tbody>
-          {defaultData.map(data => (
+          {devices.datos1.map(data => (
             <tr>
               <td class="align-middle">
                 <h5>{data.id}</h5>

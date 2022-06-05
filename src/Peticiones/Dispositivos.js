@@ -1,11 +1,8 @@
 import React from "react";
-import axios from "axios";
-import { useModal } from "../hooks/useModal";
- 
+import axios from "axios"; 
 
 export function Dispositivos() {
 
-  const {setAllDevice} = useModal();
   const state={
     form:{
       nameDevice: "",
@@ -37,7 +34,7 @@ export function Dispositivos() {
     catch (e) {
       console.log(e);
     }
-  } 
+  }
 
   const getAllDevice = async ()=>{
     /*axios.get(urlBase+"getAll").then(response=> {
@@ -45,11 +42,8 @@ export function Dispositivos() {
         this.setState({data:rensponse.data})
     })*/
     //,{headers: headers}
-    await axios.get(urlBase+"getAll").then(res =>{
-        setAllDevice([JSON.parse(res.data)]);
-    }).catch(error =>{
-        console.log(error);
-    });
+    const response = await axios.get(urlBase+"getAll");
+    return response;
   }
 
   const getOneByName = ()=>{

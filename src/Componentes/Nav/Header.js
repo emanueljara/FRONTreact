@@ -11,6 +11,7 @@ export function Header({selecTypeSearch,setSelecTypeSearch}) {
         <Navbar bg="dark" variant={"dark"} expand="lg">
           <Container>
             <Navbar.Brand href="http://localhost:3000/">Invernadero</Navbar.Brand>
+            <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav" className="justify-content-between">
               <Nav className="me-auto">
                 <div>
@@ -20,7 +21,7 @@ export function Header({selecTypeSearch,setSelecTypeSearch}) {
                   />
                 </div>
                 <div className="ml-3">
-                  <Selector 
+                  <Selector
                     selecTypeSearch={selecTypeSearch}
                   />
                 </div>
@@ -36,12 +37,7 @@ export function Header({selecTypeSearch,setSelecTypeSearch}) {
                     (selecTypeSearch === '3' || selecTypeSearch === '4') ? false: true
                   }
                 />
-                <Button 
-                  variant="outline-success"
-                  disabled={
-                    (selecTypeSearch === '3' || selecTypeSearch === '4') ? false: true
-                  }
-                >Search</Button>
+                <Button variant="outline-success">Search</Button>
               </Form>
             </Navbar.Collapse>
           </Container>
