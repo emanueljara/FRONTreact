@@ -5,8 +5,8 @@ export function EditarDispositivo({setOpenDetailsModal, actualDevice, setCreateS
   var option = null;
 
   const [show, setShow] = React.useState(true);
-  const [nameValue, setNameValue] = React.useState(actualDevice.nombre);
-  const [locValue, setLocValue] = React.useState(actualDevice.localizacion);
+  const [nameValue, setNameValue] = React.useState(actualDevice.nameDevice);
+  const [locValue, setLocValue] = React.useState(actualDevice.locationDescription);
 
   const handleClose = () => {
     setShow(false);
@@ -31,7 +31,7 @@ export function EditarDispositivo({setOpenDetailsModal, actualDevice, setCreateS
   return(
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
-        <Modal.Title>{actualDevice.nombre}</Modal.Title>
+        <Modal.Title>{actualDevice.nameDevice}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form>
@@ -40,9 +40,9 @@ export function EditarDispositivo({setOpenDetailsModal, actualDevice, setCreateS
               <Form.Label>
                 <h5>Sensores</h5>
               </Form.Label>
-              {actualDevice.sensor.map(sensor => (
+              {actualDevice.sensors.map(sensor => (
                 <ListGroup.Item action variant="info">
-                  {sensor.tipo}
+                  {sensor.type_sensors}
                   <Modal.Footer>
                     <Button variant="outline-danger" onClick={confimEliminacion}>Eliminar</Button>
                   </Modal.Footer>

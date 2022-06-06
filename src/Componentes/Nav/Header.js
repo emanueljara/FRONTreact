@@ -10,7 +10,7 @@ export function Header({selecTypeSearch,setSelecTypeSearch}) {
       <div>
         <Navbar bg="dark" variant={"dark"} expand="lg">
           <Container>
-            <Navbar.Brand href="http://localhost:3000/">Invernadero</Navbar.Brand>
+            <Navbar.Brand href="http://localhost:3001/">Invernadero</Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav" className="justify-content-between">
               <Nav className="me-auto">

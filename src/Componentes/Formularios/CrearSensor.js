@@ -49,11 +49,11 @@ function CrearSensor({setCreateSensorModal, actualDevice, setOpenDetailsModal}) 
           <Row className="mb-3">
             <Form.Group controlId="formGridState">
               <Form.Label>Seleccione el tipo del sensor</Form.Label>
-              {actualDevice.sensor.map(sens => (
+              {actualDevice.sensors.map(sens => (
                 <Form.Check 
                   type="switch"
                   id={sens.id}
-                  label={sens.tipo}
+                  label={sens.type_sensors}
                 />
               ))}
             </Form.Group>

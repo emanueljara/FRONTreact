@@ -48,18 +48,9 @@ export function StructureTable({setOpenDetailsModal, setActualDevice, setCreateD
   React.useEffect(()=>{
     function fetchData(){
       getAllDevice().then(res =>{
-        console.log('Entró');
-        if(res.data.length !== 0){
-          let datos = objectToList(res.data);
-          
-          // console.log('-----', datos);
-          // console.log(data);
-          setDevices({datos1: datos});
-          // console.log(devices);
-          devices.datos1.map(val => console.log(val.nameDevice));
-          // console.log(devices.datos1);
-          // console.log(typeof(datos));
-        }
+        console.log('Entró', res.data.length, res.data);
+        let datos = objectToList(res.data);
+        setDevices({datos1: datos});
       });      
     }
     fetchData();
@@ -67,7 +58,7 @@ export function StructureTable({setOpenDetailsModal, setActualDevice, setCreateD
 
   setInterval(() => {
     if(!reload){
-      setReload(!reload);
+      setReload(true);
     }
   }, 10000);
   
@@ -90,39 +81,39 @@ export function StructureTable({setOpenDetailsModal, setActualDevice, setCreateD
           </tr>
         </thead>
         <tbody>
-          {devices.datos1.map(data => (
+          { devices.datos1 !== undefined && (Object.entries(devices.datos1).map(data => (
             <tr>
               <td class="align-middle">
-                <h5>{data.id}</h5>
+                <h5>{data[1].id}</h5>
               </td>
               <td class="align-middle">
-                {data.nombre}
+                {data[1].nameDevice}
               </td>
               <td class="align-middle">
-                {data.localizacion}
+                {data[1].locationDescription}
               </td>
               <td class="align-middle">
                 <Table>
                   <tbody>
-                    {data.sensor.map(sensor => (
+                    {(data[1] !== undefined && data[1] !== null) && (Object.entries(data[1].sensors).map(sensor => (
                       <Fila><td className="d-flex flex-column justify-content-center">{sensor.id}</td></Fila>
-                    ))}
+                    )))}
                   </tbody>
                 </Table>                
               </td>
               <td class="align-middle">
                 <Table>
                   <tbody>
-                    {data.sensor.map(sensor =>(
-                      <Fila><td>{sensor.tipo}</td></Fila>
-                    ))}
+                    {(data[1] !== undefined && data[1] !== null) && (Object.entries(data[1].sensors).map(sensor =>(
+                      <Fila><td>{sensor.type_sensors}</td></Fila>
+                    )))}
                   </tbody>
                 </Table>
               </td>
               <td class="align-middle">
                 <Button
                   variant="outline-info"
-                  onClick={() => onOpenDetailsModal(data)}
+                  onClick={() => onOpenDetailsModal(data[1])}
                 >Ver detalle</Button>
               </td>
               <td class="align-middle">
@@ -132,7 +123,7 @@ export function StructureTable({setOpenDetailsModal, setActualDevice, setCreateD
                 <Button variant="outline-warning" onClick={() => setShowMenuMeasures(true)}> Ver Mediciones</Button>
               </td>
             </tr>
-          ))}
+          )))}
         </tbody>
       </Table>
     </Container>

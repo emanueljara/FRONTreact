@@ -54,8 +54,8 @@ export function Dispositivos() {
     return axios.get(urlBase+"getByLocation/"+this.state.form.locationDescription);
   }
 
-  const createDevice = async ()=>{
-    await axios.post(urlBase + "create", this.state.form).then(response =>{
+  const createDevice = async (device)=>{
+    await axios.post(urlBase + "create", device).then(response =>{
       //this.getAllDevice
     }).catch(error =>{
       console.log(error);
