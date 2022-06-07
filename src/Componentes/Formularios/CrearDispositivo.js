@@ -1,12 +1,15 @@
 import React from "react";
 import {Modal, Form, Button} from "react-bootstrap";
+import { Dispositivos } from "../../Peticiones/Dispositivos";
 
-export function CrearDispositivo({setCreateDeviceModal, setCreateSensorModal}) {
+export function CrearDispositivo({setCreateDeviceModal, setCreateSensorModal, setActualDevice}) {
   
   const [show, setShow] = React.useState(true);
   const [nameValue, setNameValue] = React.useState('');
   const [locValue, setLocValue] = React.useState('');
   const [addSensorCheck, setAddSensorCheck] = React.useState(false);
+
+  const {createDevice} = Dispositivos();
 
   const handleClose = () => {
     setShow(false);
@@ -17,7 +20,16 @@ export function CrearDispositivo({setCreateDeviceModal, setCreateSensorModal}) {
   const onCreateDevice = () => {
     //Petición para crear un nuevo dispositivo
     //code
-
+    const device = {
+      form:{
+        nameDevice: nameValue,
+        locationDescription: locValue
+      }
+    };
+    createDevice(device.form).then(response => {
+      console.log(response.data);
+      setActualDevice({...response.data, sensors: []})
+    });
 
     if(addSensorCheck){
       setCreateSensorModal(true);

@@ -42,7 +42,7 @@ export function EditarDispositivo({setOpenDetailsModal, actualDevice, setCreateS
               </Form.Label>
               {actualDevice.sensors.map(sensor => (
                 <ListGroup.Item action variant="info">
-                  {sensor.type_sensors}
+                  {sensor.tipeSensors}
                   <Modal.Footer>
                     <Button variant="outline-danger" onClick={confimEliminacion}>Eliminar</Button>
                   </Modal.Footer>

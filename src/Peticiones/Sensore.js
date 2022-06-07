@@ -1,7 +1,7 @@
-import {axios} from "axios";
+import axios from "axios";
 
 export function Sensore() {
-    state={
+    const state={
         form:{
             idSensor: 1,
             tipeSensors: [""],
@@ -10,7 +10,7 @@ export function Sensore() {
         tipeSensors: ""
     }
 
-    const urlBase= "localhost:3000/sensores/";
+    const urlBase= "http://localhost:3000/sensores/";
 
     const getAllCreate = ()=>{
         return axios.get(urlBase+"getAll");
@@ -20,20 +20,18 @@ export function Sensore() {
         return axios.get(urlBase+"getOne/"+this.state.form.idSensor);
     }
 
-    const getTypeSensors = ()=>{
-        return axios.get(urlBase+"getTypeSensors");
+    const getTypeSensors = async ()=>{
+        const response = await axios.get(urlBase+"getTypeSensors");
+        return response;
     }
 
     const getDeviceHaveOneTypeSensor =()=>{
         return axios.get(urlBase+"getAllDeviceaHaveOneTypeSensor?tipeSensors="+this.state.form.tipeSensors);
     }
 
-    const createSensor = async ()=>{
-        await axios.post(urlBase + "create", this.state.form).then(response =>{
-            //this.getAllDevice
-        }).catch(error =>{
-            console.log(error);
-        })
+    const createSensor = async (sensors)=>{
+        const response = await axios.post(urlBase + "create", sensors);
+        return response;
     }
 
     const DeleteSensor = ()=>{
@@ -41,5 +39,5 @@ export function Sensore() {
             
         })
     }
-    return{};
+    return{getTypeSensors, createSensor};
 }

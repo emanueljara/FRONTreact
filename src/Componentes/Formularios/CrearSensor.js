@@ -1,10 +1,16 @@
 import React from "react";
 import {Modal, Form, Button, Row} from "react-bootstrap";
+import {Sensore} from "../../Peticiones/Sensore";
 
-function CrearSensor({setCreateSensorModal, actualDevice, setOpenDetailsModal}) {
+function CrearSensor({setCreateSensorModal, actualDevice, setOpenDetailsModal, setActualDevice}) {
 
   const [show, setShow] = React.useState(true);
   const [typeSensorValue, setTypeSensorValue] = React.useState('');
+  const [sensorTypes, setSensorTypes] = React.useState({});
+  const [sensorsAdded, setSensorsAdded] = React.useState([]);
+  const [reload, setReload] = React.useState(false);
+
+  const {getTypeSensors, createSensor} = Sensore();
 
   const handleClose = () => {
     setShow(false);
@@ -17,28 +23,63 @@ function CrearSensor({setCreateSensorModal, actualDevice, setOpenDetailsModal}) 
     setOpenDetailsModal(true);
   }
 
+  const objectToList = (data) => {
+    let list = [];
+    for (let i = 0; i < data.length; i++) {
+      list.push(data[i]);
+    }
+
+    return list;
+  }
+
   //Desde acá se hacen la peticion al back de los sensores del dispositivo. 
   //Crear una const donde se almacene la info y reemplazar en el return: actualDevice.sensor por la const creada.
   React.useEffect(() => {
-    //code
-    console.log('Efecto');
+    getTypeSensors().then(res =>{
+      let datos = objectToList(res.data);
+      setSensorTypes({datos1: datos});
+    })
+  }, [reload]);
 
-  }, []);//Array vacío indica que el efecto se ejecutará una sola vez al iniciar el componente.
+  setInterval(() => {
+    if(!reload){
+      setReload(true);
+    }
+  }, 1000);
 
   //Agregar nuevo tipo de sensor.
   const saveType = () =>{
-    console.log(typeSensorValue);
+    const newType = {
+      "type_sensors": typeSensorValue
+    }
+    setSensorTypes({datos1: [...sensorTypes.datos1, newType]})
+  }
+
+  const onCheckedSensor = (check, sensor) => {
+    if(check){
+      const sens = [...sensorsAdded, sensor];
+      setSensorsAdded(sens);
+    }else{
+      const newSensors = sensorsAdded.filter((name) => name !== sensor);
+      setSensorsAdded(newSensors);
+    }
   }
 
   //Añadir sensor al dispositivo
   const addSensor = () => {
-    //code
-
-    onOpenDetails();
+    const data = {
+      tipeSensors: sensorsAdded,
+      device: actualDevice.nameDevice
+    }
+    createSensor(data).then(response => {
+      console.log(response.data);
+      //setActualDevice({...response.data, sensors: [...data]})
+    });
+    // onOpenDetails();
   }
   
   const handleShow = () => setShow(true);
-  return(
+  return(    
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
           <Modal.Title>Añadir Sensor</Modal.Title>
@@ -49,13 +90,14 @@ function CrearSensor({setCreateSensorModal, actualDevice, setOpenDetailsModal}) 
           <Row className="mb-3">
             <Form.Group controlId="formGridState">
               <Form.Label>Seleccione el tipo del sensor</Form.Label>
-              {actualDevice.sensors.map(sens => (
+              { sensorTypes.datos1 !== undefined && (Object.entries(sensorTypes.datos1).map(sens => (
                 <Form.Check 
                   type="switch"
-                  id={sens.id}
-                  label={sens.type_sensors}
+                  id={sens[1].type_sensors}
+                  label={sens[1].type_sensors}
+                  onChange={event => {onCheckedSensor(event.target.checked, sens[1].type_sensors)}}
                 />
-              ))}
+              )))}
             </Form.Group>
           </Row>
           <Row className="mb-3">

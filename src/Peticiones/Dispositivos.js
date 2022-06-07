@@ -37,17 +37,12 @@ export function Dispositivos() {
   }
 
   const getAllDevice = async ()=>{
-    /*axios.get(urlBase+"getAll").then(response=> {
-        console.log(response.data);
-        this.setState({data:rensponse.data})
-    })*/
-    //,{headers: headers}
     const response = await axios.get(urlBase+"getAll");
     return response;
   }
 
-  const getOneByName = ()=>{
-    return axios.get(urlBase+"getByName/"+this.state.form.nameDevice);
+  const getOneByName = (name)=>{
+    return axios.get(urlBase+"getByName/"+name);
   }
 
   const getAllDeviceInOneLocation = ()=>{
@@ -55,11 +50,8 @@ export function Dispositivos() {
   }
 
   const createDevice = async (device)=>{
-    await axios.post(urlBase + "create", device).then(response =>{
-      //this.getAllDevice
-    }).catch(error =>{
-      console.log(error);
-    })
+    const response = await axios.post(urlBase + "create", device);
+    return response;
   }
 
   const updateDevice = () =>{
@@ -74,7 +66,7 @@ export function Dispositivos() {
     })
   }
 
-  return{getAllDevice, getFetch};
+  return{getAllDevice, getOneByName, createDevice};
 }
 
 /*<Modal>

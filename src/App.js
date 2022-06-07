@@ -47,6 +47,7 @@ function App() {
           <CrearDispositivo
             setCreateDeviceModal={setCreateDeviceModal}
             setCreateSensorModal={setCreateSensorModal}
+            setActualDevice={setActualDevice}
           />
         )}
 
@@ -55,6 +56,7 @@ function App() {
             setCreateSensorModal={setCreateSensorModal}
             actualDevice={actualDevice}
             setOpenDetailsModal={setOpenDetailsModal}
+            setActualDevice={setActualDevice}
           />
         )}
 

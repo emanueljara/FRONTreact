@@ -25,7 +25,6 @@ export function StructureTable({setOpenDetailsModal, setActualDevice, setCreateD
 
   const onCreateDevice =  () => {
     setCreateDeviceModal(true);
-    console.log(getAllDevice());
   }
 
   //Eliminar dispositivo
@@ -45,22 +44,18 @@ export function StructureTable({setOpenDetailsModal, setActualDevice, setCreateD
     return list;
   }
 
-  React.useEffect(()=>{
-    function fetchData(){
-      getAllDevice().then(res =>{
-        console.log('Entró', res.data.length, res.data);
-        let datos = objectToList(res.data);
-        setDevices({datos1: datos});
-      });      
-    }
-    fetchData();
+  React.useEffect(()=>{    
+    getAllDevice().then(res =>{
+      let datos = objectToList(res.data);
+      setDevices({datos1: datos});
+    });
   }, [reload]);
 
   setInterval(() => {
     if(!reload){
       setReload(true);
     }
-  }, 10000);
+  }, 1000);
   
   return(
     <Container className="mt-3">
@@ -83,43 +78,43 @@ export function StructureTable({setOpenDetailsModal, setActualDevice, setCreateD
         <tbody>
           { devices.datos1 !== undefined && (Object.entries(devices.datos1).map(data => (
             <tr>
-              <td class="align-middle">
+              <td className="align-middle">
                 <h5>{data[1].id}</h5>
               </td>
-              <td class="align-middle">
+              <td className="align-middle">
                 {data[1].nameDevice}
               </td>
-              <td class="align-middle">
+              <td className="align-middle">
                 {data[1].locationDescription}
               </td>
-              <td class="align-middle">
+              <td className="align-middle">
                 <Table>
                   <tbody>
                     {(data[1] !== undefined && data[1] !== null) && (Object.entries(data[1].sensors).map(sensor => (
-                      <Fila><td className="d-flex flex-column justify-content-center">{sensor.id}</td></Fila>
+                      <Fila><td className="d-flex flex-column justify-content-center">{sensor[1].id}</td></Fila>
                     )))}
                   </tbody>
                 </Table>                
               </td>
-              <td class="align-middle">
+              <td className="align-middle">
                 <Table>
                   <tbody>
                     {(data[1] !== undefined && data[1] !== null) && (Object.entries(data[1].sensors).map(sensor =>(
-                      <Fila><td>{sensor.type_sensors}</td></Fila>
+                      <Fila><td>{sensor[1].tipeSensors}</td></Fila>
                     )))}
                   </tbody>
                 </Table>
               </td>
-              <td class="align-middle">
+              <td className="align-middle">
                 <Button
                   variant="outline-info"
                   onClick={() => onOpenDetailsModal(data[1])}
                 >Ver detalle</Button>
               </td>
-              <td class="align-middle">
+              <td className="align-middle">
                 <Button variant="outline-danger" onClick={() => deleteDevice(data.id)}>Eliminar</Button>
               </td>
-              <td class="align-middle">
+              <td className="align-middle">
                 <Button variant="outline-warning" onClick={() => setShowMenuMeasures(true)}> Ver Mediciones</Button>
               </td>
             </tr>
