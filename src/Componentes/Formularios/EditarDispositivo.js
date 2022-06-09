@@ -1,12 +1,16 @@
 import React from "react";
-import {Modal,Form, Row, ListGroup, Button } from "react-bootstrap"
+import {Modal,Form, Row, ListGroup, Button } from "react-bootstrap";
+import { Sensore } from "../../Peticiones/Sensore";
+import { Dispositivos } from "../../Peticiones/Dispositivos";
 
-export function EditarDispositivo({setOpenDetailsModal, actualDevice, setCreateSensorModal}) {
-  var option = null;
+export function EditarDispositivo({setOpenDetailsModal, actualDevice, setActualDevice, setCreateSensorModal}) {
 
   const [show, setShow] = React.useState(true);
   const [nameValue, setNameValue] = React.useState(actualDevice.nameDevice);
   const [locValue, setLocValue] = React.useState(actualDevice.locationDescription);
+
+  const {deleteSensor} = Sensore();
+  const {updateDevice} = Dispositivos();
 
   const handleClose = () => {
     setShow(false);
@@ -19,14 +23,27 @@ export function EditarDispositivo({setOpenDetailsModal, actualDevice, setCreateS
     setCreateSensorModal(true);
   }
 
-  const handleShow = () => setShow(true);
-
-  const confimEliminacion = () => {
-    option =  window.confirm("¿Seguro que desea eliminar los elementos?");
+  const confirmEliminacion = (id, name) => {
+    const option =  window.confirm("¿Eliminar sensor?");
     if (option){
-      console.log(option);
+      deleteSensor(id, name).then(resp => {
+        console.log(resp.data);
+      });
+    } else{
+      return;
     }
   };
+
+  const onUpdateDevice = () => {
+    const data = {
+      nameDevice: nameValue,
+      locationDescription: locValue
+    }
+
+    updateDevice(actualDevice.nameDevice, data).then(resp => {
+      setActualDevice({...actualDevice, nameDevice: resp.data.nameDevice, locationDescription: resp.data.locationDescription});
+    });
+  }
 
   return(
     <Modal show={show} onHide={handleClose}>
@@ -44,7 +61,10 @@ export function EditarDispositivo({setOpenDetailsModal, actualDevice, setCreateS
                 <ListGroup.Item action variant="info">
                   {sensor.tipeSensors}
                   <Modal.Footer>
-                    <Button variant="outline-danger" onClick={confimEliminacion}>Eliminar</Button>
+                    <Button 
+                      variant="outline-danger" 
+                      onClick={() => confirmEliminacion(sensor.id, actualDevice.nameDevice)}
+                    >Eliminar</Button>
                   </Modal.Footer>
                 </ListGroup.Item>
               ))}
@@ -55,7 +75,7 @@ export function EditarDispositivo({setOpenDetailsModal, actualDevice, setCreateS
             </Form.Group>
           </Row>
 
-          <Row className="mb-3 d-flex flex-row justify-content-center">
+          <Row className="mb-1 d-flex flex-row justify-content-center">
             <Form.Group controlId="formGridEmail">
               <Form.Label>Id</Form.Label>
               <Form.Control 
@@ -73,7 +93,7 @@ export function EditarDispositivo({setOpenDetailsModal, actualDevice, setCreateS
                 onChange={event => setNameValue(event.target.value)}
               />
             </Form.Group>
-            <Form.Group controlId="formGridEmail">
+            <Form.Group controlId="formGridEmail" className="mb-3">
               <Form.Label>Localizacion</Form.Label>
               <Form.Control 
                 type="text"
@@ -82,12 +102,14 @@ export function EditarDispositivo({setOpenDetailsModal, actualDevice, setCreateS
                 onChange={event => setLocValue(event.target.value)}
               />
             </Form.Group>
+            <Form.Group>
+              <Button className="" variant="outline-success" onClick={onUpdateDevice}>Actualizar</Button>
+            </Form.Group>            
           </Row>
         </Form>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="outline-danger" onClick={handleClose}>Cancelar</Button>
-        <Button variant="outline-success" onClick={handleClose}>Guardar Cambios</Button>
+        <Button variant="outline-success" onClick={handleClose}>Listo</Button>
       </Modal.Footer>
     </Modal>
   );

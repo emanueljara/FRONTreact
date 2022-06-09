@@ -18,25 +18,27 @@ export function CrearDispositivo({setCreateDeviceModal, setCreateSensorModal, se
 
   //Crear dispositivo. Verificar si el check está activado o no y realizar la función correspondiente.
   const onCreateDevice = () => {
-    //Petición para crear un nuevo dispositivo
-    //code
-    const device = {
-      form:{
-        nameDevice: nameValue,
-        locationDescription: locValue
-      }
-    };
-    createDevice(device.form).then(response => {
-      console.log(response.data);
-      setActualDevice({...response.data, sensors: []})
-    });
+    if(nameValue.length > 0 && locValue.length > 0){
+      const device = {
+        form:{
+          nameDevice: nameValue,
+          locationDescription: locValue
+        }
+      };
+      createDevice(device.form).then(response => {
+        console.log(response.data);
+        setActualDevice({...response.data, sensors: []})
+      });
 
-    if(addSensorCheck){
-      setCreateSensorModal(true);
-      setShow(false);
-      setCreateDeviceModal(false);
-    } else {
-      handleClose();
+      if(addSensorCheck){
+        setCreateSensorModal(true);
+        setShow(false);
+        setCreateDeviceModal(false);
+      } else {
+        handleClose();
+      }
+    }else{
+      window.alert('Debes ingresar todos los valores!!!');
     }
   }
 

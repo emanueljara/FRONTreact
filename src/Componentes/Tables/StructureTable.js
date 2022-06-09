@@ -17,7 +17,8 @@ export function StructureTable({setOpenDetailsModal, setActualDevice, setCreateD
   const [devices, setDevices] = React.useState(defaultData);
   const [reload, setReload] = React.useState(false);
 
-  const {getAllDevice} = Dispositivos();
+  const {getAllDevice, deleteDevice} = Dispositivos();
+
   const onOpenDetailsModal = (details)=>{
     setOpenDetailsModal(true);
     setActualDevice(details);
@@ -28,11 +29,18 @@ export function StructureTable({setOpenDetailsModal, setActualDevice, setCreateD
   }
 
   //Eliminar dispositivo
-  const deleteDevice = (id) => {
+  const onDeleteDevice = (name) => {
     const option = window.confirm("¿Eliminar dispositivo?");
     if (option) {
-      //code
+      deleteDevice(name).then((resp)=>{
+        console.log(resp);
+      });
     }
+  }
+
+  const onShowMeasuresModal = (details) =>{
+    setShowMenuMeasures(true);
+    setActualDevice(details);
   }
 
   const objectToList = (data) => {
@@ -52,10 +60,8 @@ export function StructureTable({setOpenDetailsModal, setActualDevice, setCreateD
   }, [reload]);
 
   setInterval(() => {
-    if(!reload){
-      setReload(true);
-    }
-  }, 1000);
+    setReload(!reload);
+  }, 10000);
   
   return(
     <Container className="mt-3">
@@ -94,7 +100,7 @@ export function StructureTable({setOpenDetailsModal, setActualDevice, setCreateD
                       <Fila><td className="d-flex flex-column justify-content-center">{sensor[1].id}</td></Fila>
                     )))}
                   </tbody>
-                </Table>                
+                </Table>
               </td>
               <td className="align-middle">
                 <Table>
@@ -112,10 +118,10 @@ export function StructureTable({setOpenDetailsModal, setActualDevice, setCreateD
                 >Ver detalle</Button>
               </td>
               <td className="align-middle">
-                <Button variant="outline-danger" onClick={() => deleteDevice(data.id)}>Eliminar</Button>
+                <Button variant="outline-danger" onClick={() => onDeleteDevice(data[1].nameDevice)}>Eliminar</Button>
               </td>
               <td className="align-middle">
-                <Button variant="outline-warning" onClick={() => setShowMenuMeasures(true)}> Ver Mediciones</Button>
+                <Button variant="outline-warning" onClick={() => onShowMeasuresModal(data[1])}> Ver Mediciones</Button>
               </td>
             </tr>
           )))}

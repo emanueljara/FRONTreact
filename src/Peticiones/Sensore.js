@@ -34,10 +34,9 @@ export function Sensore() {
         return response;
     }
 
-    const DeleteSensor = ()=>{
-        axios.delete(urlBase + "deleteTypeOfOneDevice?idSensors="+ this.state.form.idSensor+"&device="+this.state.form.device).then(response =>{
-            
-        })
+    const deleteSensor = async (id, nameDevice)=>{
+        const response = axios.delete(urlBase + "deleteTypeOfOneDevice?idSensors="+ id +"&device="+nameDevice);
+        return response;
     }
-    return{getTypeSensors, createSensor};
+    return{getTypeSensors, createSensor, deleteSensor};
 }

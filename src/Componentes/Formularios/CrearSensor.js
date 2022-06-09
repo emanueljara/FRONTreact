@@ -1,6 +1,7 @@
 import React from "react";
 import {Modal, Form, Button, Row} from "react-bootstrap";
 import {Sensore} from "../../Peticiones/Sensore";
+import { Dispositivos } from "../../Peticiones/Dispositivos";
 
 function CrearSensor({setCreateSensorModal, actualDevice, setOpenDetailsModal, setActualDevice}) {
 
@@ -11,6 +12,7 @@ function CrearSensor({setCreateSensorModal, actualDevice, setOpenDetailsModal, s
   const [reload, setReload] = React.useState(false);
 
   const {getTypeSensors, createSensor} = Sensore();
+  const {getOneByName} = Dispositivos();
 
   const handleClose = () => {
     setShow(false);
@@ -71,18 +73,24 @@ function CrearSensor({setCreateSensorModal, actualDevice, setOpenDetailsModal, s
       tipeSensors: sensorsAdded,
       device: actualDevice.nameDevice
     }
-    createSensor(data).then(response => {
-      console.log(response.data);
-      //setActualDevice({...response.data, sensors: [...data]})
+    createSensor(data).then(() => {
+      getDevice();
     });
-    // onOpenDetails();
+    onOpenDetails();
+  }
+
+  const getDevice = ()=>{
+    getOneByName(actualDevice.nameDevice).then((response) =>{
+      console.log(response.data);
+      setActualDevice(response.data);
+    })
   }
   
   const handleShow = () => setShow(true);
   return(    
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
-          <Modal.Title>Añadir Sensor</Modal.Title>
+        <Modal.Title>Añadir Sensor</Modal.Title>
       </Modal.Header>
 
       <Modal.Body>
@@ -91,7 +99,7 @@ function CrearSensor({setCreateSensorModal, actualDevice, setOpenDetailsModal, s
             <Form.Group controlId="formGridState">
               <Form.Label>Seleccione el tipo del sensor</Form.Label>
               { sensorTypes.datos1 !== undefined && (Object.entries(sensorTypes.datos1).map(sens => (
-                <Form.Check 
+                <Form.Check
                   type="switch"
                   id={sens[1].type_sensors}
                   label={sens[1].type_sensors}

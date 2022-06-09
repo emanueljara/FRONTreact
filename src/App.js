@@ -26,7 +26,8 @@ function App() {
     setShowMeasurements,
     selecTypeSearch,
     setSelecTypeSearch,
-    allDevice
+    sensorSelected,
+    setSensorSelected
   } = useModal();
 
   if(!showMeasurements){
@@ -39,6 +40,7 @@ function App() {
           <EditarDispositivo 
             setOpenDetailsModal={setOpenDetailsModal}
             actualDevice={actualDevice}
+            setActualDevice={setActualDevice}
             setCreateSensorModal={setCreateSensorModal}
           />
         )}
@@ -64,6 +66,8 @@ function App() {
           <VerMediciones
             setShowMenuMeasures={setShowMenuMeasures}
             setShowMeasurements={setShowMeasurements}
+            actualDevice={actualDevice}
+            setSensorSelected={setSensorSelected}
           />
         )}
 
@@ -72,17 +76,17 @@ function App() {
           setActualDevice={setActualDevice}
           setCreateDeviceModal={setCreateDeviceModal}
           setShowMenuMeasures={setShowMenuMeasures}
-          allDevice={allDevice}
         />
-
-        {/* <GraficaLineas/> */}
       </div>
     );
   } else if (showMeasurements){
     return(
       <div>
         <Header/>
-        <GraficaLineas/>
+        <GraficaLineas
+          sensorSelected={sensorSelected}
+          actualDevice={actualDevice}
+        />
       </div>
     );
   }
