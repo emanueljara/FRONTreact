@@ -1,80 +1,102 @@
 import React from "react";
-import {Line} from "@ant-design/charts";
+import { Line } from "@ant-design/charts";
 import { Mediciones } from "../../Peticiones/Mediciones";
 
 
 function GraficaLineas({sensorSelected, actualDevice}) {
 
-  const defaultData = [
-    {fecha: '2022-06-08T21:52:27.675Z', medicion: '50.1', categoria: '4'},
-    {fecha: '2022-05-1-5:10', medicion: '40.1', categoria: '1'},
-    {fecha: '2022-05-1-5:20', medicion: '30.1', categoria: '1'},
-    {fecha: '2022-06-08T22:52:27.675Z', medicion: '20.1', categoria: '4'},
-    {fecha: '2022-05-1-5:40', medicion: '10.1', categoria: '1'},
-    {fecha: '2022-05-1-5:50', medicion: '60.1', categoria: '1'},
-    {fecha: '2022-05-1-6:00', medicion: '70.1', categoria: '2'},
-    {fecha: '2022-05-1-6:10', medicion: '80.1', categoria: '2'},
-    {fecha: '2022-05-1-6:20', medicion: '90.1', categoria: '1'},
-    {fecha: '2022-05-1-6:20', medicion: '90.1', categoria: '1'},
-    {fecha: '2022-05-1-6:20', medicion: '90.1', categoria: '1'},
-    {fecha: '2022-05-1-6:30', medicion: '100.1', categoria: '2'},
-    {fecha: '2022-05-1-6:40', medicion: '50.1', categoria: '2'},
-    {fecha: '2022-05-1-6:50', medicion: '40.1', categoria: '3'},
-    {fecha: '2022-05-1-7:00', medicion: '100.1', categoria: '3'},
-    {fecha: '2022-05-1-7:10', medicion: '20.1', categoria: '3'},
-    {fecha: '2022-05-1-7:20', medicion: '30.1', categoria: '3'},
-    {fecha: '2022-05-1-7:30', medicion: '50.1', categoria: '3'},
-    {fecha: '2022-05-1-7:40', medicion: '50.1', categoria: '3'},
+  let data = [
+    // {date: '2022-06-08T21:52:27.675Z', medicion: '50.1'/*, category: '4'*/},
+    {date: '2022-05-01-05:10', measure: 40.1, category: 'Hola'},
+    {date: '2022-05-01-05:20', measure: 30.2, category: 'Hola'},
+    // {date: '2022-06-08T22:52:27.675Z', medicion: '20.1'/*, category: '4'*/},
+    {date: '2022-05-01-05:40', measure: 10.3, category: 'Hola'},
+    {date: '2022-05-01-05:50', measure: 60.55, category: 'Hola'},
+    {date: '2022-05-01-06:00', measure: 70.1, category: '2'},
+    {date: '2022-05-01-06:10', measure: 80.1, category: '2'},
+    {date: '2022-05-01-06:20', measure: 90.3, category: 'Hola'},
+    {date: '2022-05-01-06:20', measure: 90.1, category: 'Hola'},
+    {date: '2022-05-01-06:20', measure: 90.1, category: 'Hola'},
+    {date: '2022-05-01-06:30', measure: 100.5, category: '2'},
+    {date: '2022-05-01-06:40', measure: 50.1, category: '2'},
+    {date: '2022-05-01-06:50', measure: 40.1, category: '3'},
+    {date: '2022-05-01-07:00', measure: 100.9, category: '3'},
+    {date: '2022-05-01-07:10', measure: 20.1, category: '3'},
+    {date: '2022-05-01-07:20', measure: 30.8, category: '3'},
+    {date: '2022-05-01-07:30', measure: 50.1, category: '3'},
+    {date: '2022-05-01-07:40', measure: 50.1, category: '3'}
   ];
 
-  // const [data, setData] = React.useState([]);
+  const [ready, setReady] = React.useState(false);
+  const {getAllOneSensor} = Mediciones();
 
-  // const {getAllOneSensor} = Mediciones();
-
-  // React.useEffect(() => {
-  //   if(sensorSelected.selected === 'One'){
-  //     getAllOneSensor(sensorSelected.sensorId, actualDevice.nameDevice).then(resp => {
-  //       formatOneSensorMeasures(resp.data.measurements);
-  //     });
-  //   }
-  // }, []);
-
-  // const formatOneSensorMeasures = (measurements) =>{
-  //   Object.entries(measurements).map(val => {
-  //     const newData = [...data, {
-  //       fecha: val[1].createDate, 
-  //       medicion: val[1].measurementValue, 
-  //       categoria: sensorSelected.sensorType
-  //     }];
-  //     console.log(data);
-  //     setData([...newData]);      
-  //   });
-  // }
-
-  const configuracion={
-    defaultData,
-    title:{
-      visible:true,
-      text:'temperatura'
-    },
-    xField: 'fecha',
-    yField: 'medicion',
-    seriesField: 'categoria',
-    point:{
-      visible:true,
-      size: 5,
-      shape: 'circle',
-      style:{
-        fill:'white',
-        stroke: '#2593fc',
-        lineWidth:2
-      }
+  React.useEffect(() => {
+    if(sensorSelected.selected === 'One'){
+      getAllOneSensor(sensorSelected.sensorId, actualDevice.nameDevice).then(resp => {
+        formatOneSensorMeasures(resp.data.measurements);
+      });
     }
+  }, []);
+
+  const formatOneSensorMeasures = (measurements) =>{
+    
+    Object.entries(measurements).map(val => {
+      const formatDate = val[1].createDate.replace('T', '-');
+      const newData = {
+        date: formatDate.substring(0,16), 
+        measure: parseFloat(val[1].measurementValue), 
+        category: sensorSelected.sensorType
+      };
+      // console.log(formatDate.substring(0,16));
+      data.push(newData);
+    });
+    console.log(data);
+    setTimeout(() => setReady(true), 2000);
+    
   }
 
+  // const configuracion={
+  //   data,
+  //   title:{
+  //     visible:true,
+  //     text:'temperatura'
+  //   },
+  //   xField: 'year',
+  //   yField: 'value',
+  //   seriesField: 'category',
+  //   point:{
+  //     visible:true,
+  //     size: 5,
+  //     shape: 'circle',
+  //     style:{
+  //       fill:'white',
+  //       stroke: '#2593fc',
+  //       lineWidth:2
+  //     }
+  //   }
+  // }
+
+  const config = {
+    data,
+    height: 400,
+    xField: 'date',
+    yField: 'measure',
+    seriesField: 'category',
+    point: {
+      size: 5,
+      shape: 'diamond',
+    },
+  };
+  
   return(
-    <Line {...configuracion}/>
+    <React.Fragment>
+      <h2>{actualDevice.nameDevice}</h2>
+      {ready && (
+        <Line {...config}/>
+      )}      
+    </React.Fragment>    
   );
+  
 }
 
 export {GraficaLineas}

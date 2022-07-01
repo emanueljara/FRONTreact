@@ -21,7 +21,7 @@ export function StructureTable({setOpenDetailsModal, setActualDevice, setCreateD
 
   const onOpenDetailsModal = (details)=>{
     setOpenDetailsModal(true);
-    setActualDevice(details);
+    setActualDevice(details); 
   }
 
   const onCreateDevice =  () => {
