@@ -113,10 +113,10 @@ function App() {
   } else if (showMeasurements){
     return(
       <div>
-        <Header/>
-        <GraficaLineas
-          sensorSelected={sensorSelected}
+        <Header/>        
+        <GraficaMedidas
           actualDevice={actualDevice}
+          sensorSelected={sensorSelected}
         />
       </div>
     );
