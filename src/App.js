@@ -27,14 +27,19 @@ function App() {
     selecTypeSearch,
     setSelecTypeSearch,
     sensorSelected,
-    setSensorSelected
+    setSensorSelected,
+    devices,
+    setDevices
   } = useModal();
 
   if(!showMeasurements){
     return (
       <div className="App">
         <Header selecTypeSearch={selecTypeSearch}
-         setSelecTypeSearch={setSelecTypeSearch}/>
+         setSelecTypeSearch={setSelecTypeSearch}
+         devices={devices}
+         setDevices={setDevices}
+         />
 
         {openDetailsModal &&(
           <EditarDispositivo 
@@ -76,6 +81,8 @@ function App() {
           setActualDevice={setActualDevice}
           setCreateDeviceModal={setCreateDeviceModal}
           setShowMenuMeasures={setShowMenuMeasures}
+          devices={devices}
+          setDevices={setDevices}
         />
       </div>
     );

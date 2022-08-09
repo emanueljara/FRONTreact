@@ -25,8 +25,8 @@ export function Sensore() {
         return response;
     }
 
-    const getDeviceHaveOneTypeSensor =()=>{
-        return axios.get(urlBase+"getAllDeviceaHaveOneTypeSensor?tipeSensors="+this.state.form.tipeSensors);
+    const getDeviceHaveOneTypeSensor =(nombreTipoSensor)=>{
+        return axios.get(urlBase+"getAllDeviceaHaveOneTypeSensor?tipeSensors="+nombreTipoSensor);
     }
 
     const createSensor = async (sensors)=>{
@@ -38,5 +38,5 @@ export function Sensore() {
         const response = axios.delete(urlBase + "deleteTypeOfOneDevice?idSensors="+ id +"&device="+nameDevice);
         return response;
     }
-    return{getTypeSensors, createSensor, deleteSensor};
+    return{getTypeSensors, createSensor, deleteSensor,getDeviceHaveOneTypeSensor};
 }

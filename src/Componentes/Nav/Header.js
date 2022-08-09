@@ -4,7 +4,7 @@ import {Navbar, Nav, Form, FormControl, Button, Container} from 'react-bootstrap
 import { Selector } from "../Buttons/Selector";
 import {TogglearButton} from "../Buttons/togglearButton";
 
-export function Header({selecTypeSearch,setSelecTypeSearch}) {
+export function Header({selecTypeSearch,setSelecTypeSearch,devices,setDevices}) {
   return(
     <React.Fragment>
       <div>
@@ -23,6 +23,8 @@ export function Header({selecTypeSearch,setSelecTypeSearch}) {
                 <div className="ml-3">
                   <Selector
                     selecTypeSearch={selecTypeSearch}
+                    devices={devices}
+                    setDevices={setDevices}
                   />
                 </div>
               </Nav>

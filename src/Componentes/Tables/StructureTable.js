@@ -12,9 +12,9 @@ const defaultData = [{id:1, nombre:"Name 1", localizacion: "Invernadero 1", sens
 {id:3, nombre:"Name 3", localizacion: "Invernadero 3", sensor:[{id: 3.1, tipo: "Humedad"}, {id: 3.2, tipo: "Temperatura"}, {id: 3.3, tipo: "Intensidad lumínica"}]}];
 // var datos;
 
-export function StructureTable({setOpenDetailsModal, setActualDevice, setCreateDeviceModal, setShowMenuMeasures, allDevice}) {
+export function StructureTable({setOpenDetailsModal, setActualDevice, setCreateDeviceModal, setShowMenuMeasures,devices,setDevices, allDevice}) {
   
-  const [devices, setDevices] = React.useState(defaultData);
+  
   const [reload, setReload] = React.useState(false);
 
   const {getAllDevice, deleteDevice} = Dispositivos();
@@ -82,6 +82,8 @@ export function StructureTable({setOpenDetailsModal, setActualDevice, setCreateD
           </tr>
         </thead>
         <tbody>
+          {console.log("DISPOSITIVOS RESIVIDO TABLA",devices.datos1 )}
+          {devices.datos1 !== undefined && console.log("DISPOSITIVOS RESIVIDO OBJETO",Object.entries(devices.datos1))}
           { devices.datos1 !== undefined && (Object.entries(devices.datos1).map(data => (
             <tr>
               <td className="align-middle">
@@ -96,7 +98,7 @@ export function StructureTable({setOpenDetailsModal, setActualDevice, setCreateD
               <td className="align-middle">
                 <Table>
                   <tbody>
-                    {(data[1] !== undefined && data[1] !== null) && (Object.entries(data[1].sensors).map(sensor => (
+                    {(data[1] !== undefined && data[1] !== null)  && (data[1].sensors !== undefined && data[1].sensors !== null) && (Object.entries(data[1].sensors).map(sensor => (
                       <Fila><td className="d-flex flex-column justify-content-center">{sensor[1].id}</td></Fila>
                     )))}
                   </tbody>
@@ -105,7 +107,7 @@ export function StructureTable({setOpenDetailsModal, setActualDevice, setCreateD
               <td className="align-middle">
                 <Table>
                   <tbody>
-                    {(data[1] !== undefined && data[1] !== null) && (Object.entries(data[1].sensors).map(sensor =>(
+                    {(data[1] !== undefined && data[1] !== null) && (data[1].sensors !== undefined && data[1].sensors !== null) &&(Object.entries(data[1].sensors).map(sensor =>(
                       <Fila><td>{sensor[1].tipeSensors}</td></Fila>
                     )))}
                   </tbody>
