@@ -26,7 +26,6 @@ export function CrearDispositivo({setCreateDeviceModal, setCreateSensorModal, se
         }
       };
       createDevice(device.form).then(response => {
-        console.log(response.data);
         setActualDevice({...response.data, sensors: []})
       });
 

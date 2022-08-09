@@ -1,23 +1,15 @@
 import axios from "axios";
 
 export function Sensore() {
-    const state={
-        form:{
-            idSensor: 1,
-            tipeSensors: [""],
-            device: ""
-        },
-        tipeSensors: ""
-    }
-
+    
     const urlBase= "http://localhost:3000/sensores/";
 
     const getAllCreate = ()=>{
         return axios.get(urlBase+"getAll");
     }
 
-    const getOneFindById = ()=>{
-        return axios.get(urlBase+"getOne/"+this.state.form.idSensor);
+    const getOneFindById = (idSensor)=>{
+        return axios.get(urlBase+"getOne/"+idSensor);
     }
 
     const getTypeSensors = async ()=>{
@@ -38,5 +30,12 @@ export function Sensore() {
         const response = axios.delete(urlBase + "deleteTypeOfOneDevice?idSensors="+ id +"&device="+nameDevice);
         return response;
     }
-    return{getTypeSensors, createSensor, deleteSensor,getDeviceHaveOneTypeSensor};
+    return{
+        getTypeSensors,
+        createSensor, 
+        deleteSensor,
+        getDeviceHaveOneTypeSensor,
+        getAllCreate,
+        getOneFindById
+    };
 }

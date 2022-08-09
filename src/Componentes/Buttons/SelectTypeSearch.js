@@ -1,9 +1,7 @@
 import React from "react";
 import { ButtonGroup, ToggleButton } from "react-bootstrap";
 
-export function TogglearButton({selecTypeSearch,setSelecTypeSearch}) {
-  //const [checked, setChecked] = React.useState(false);
-  //const [radioValue, setRadioValue] = React.useState('1');
+export function SelectTypeSearch({selecTypeSearch,setSelecTypeSearch}) {
 
   const radios = [
     { name: 'Tipo Sensor', value: '1' },

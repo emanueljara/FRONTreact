@@ -2,15 +2,6 @@ import axios from "axios";
 
 export function Mediciones() {
 
-    const state={
-        form:{
-            measurementValue: "",
-            idSensor: 1,
-            nameDevice: ""
-        },
-        Microcontroler: ""
-    }
-
     const urlBase = "http://localhost:3000/measuremens/";
 
     const getAllOneSensor = async (id, nameDevice)=>{
@@ -18,21 +9,26 @@ export function Mediciones() {
         return response;
     }
 
-    const getAllMeassurementOfAllSensorOfOneDevice = ()=>{
-        return axios.get(urlBase+"getAllOfAllSensor?nameDevice="+this.state.Microcontroler);
+    const getAllMeassurementOfAllSensorOfOneDevice = (Microcontroller)=>{
+        return axios.get(urlBase+"getAllOfAllSensor?nameDevice="+Microcontroller);
     }
 
-    const getOneFindById = ()=>{
-        return axios.get(urlBase+"getOne/"+this.state.form.idSensor);
+    const getOneFindById = (idSensor)=>{
+        return axios.get(urlBase+"getOne/"+idSensor);
     }
 
 
-    const deleteAllMeassurement = ()=>{
-        axios.delete(urlBase + "AllOfSensorOfOneDevice?idSensors="+ this.state.form.idSensor).then(response =>{
+    const deleteAllMeassurement = (idSensor)=>{
+        axios.delete(urlBase + "AllOfSensorOfOneDevice?idSensors="+ idSensor).then(response =>{
             
         })
     }
 
 
-    return{getAllOneSensor};
+    return{
+        getAllOneSensor,
+        getAllMeassurementOfAllSensorOfOneDevice,
+        getOneFindById,
+        deleteAllMeassurement
+    };
 }

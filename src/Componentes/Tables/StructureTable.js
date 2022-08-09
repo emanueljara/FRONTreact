@@ -7,17 +7,10 @@ import {Dispositivos} from "./../../Peticiones/Dispositivos";
 
 
 const defaulColumn=['id dispositivo','nombre','Localizacion', 'id sensor','sensores'];
-const defaultData = [{id:1, nombre:"Name 1", localizacion: "Invernadero 1", sensor:[{id: 1.1, tipo: "Humedad"}, {id: 1.2, tipo: "Temperatura"}, {id: 1.3, tipo: "Intensidad lumínica"}, {id: 1.4, tipo: "Proximidad"}]},
-{id:2, nombre:"Name 2", localizacion: "Invernadero 2", sensor:[{id: 2.1, tipo: "Humedad"}, {id: 2.2, tipo: "Temperatura"}, {id: 2.3, tipo: "Intensidad lumínica"}]},
-{id:3, nombre:"Name 3", localizacion: "Invernadero 3", sensor:[{id: 3.1, tipo: "Humedad"}, {id: 3.2, tipo: "Temperatura"}, {id: 3.3, tipo: "Intensidad lumínica"}]}];
-// var datos;
 
-export function StructureTable({setOpenDetailsModal, setActualDevice, setCreateDeviceModal, setShowMenuMeasures,devices,setDevices, allDevice}) {
-  
-  
-  const [reload, setReload] = React.useState(false);
+export function StructureTable({setOpenDetailsModal, setActualDevice, setCreateDeviceModal, setShowMenuMeasures,devices}) {
 
-  const {getAllDevice, deleteDevice} = Dispositivos();
+  const {deleteDevice} = Dispositivos();
 
   const onOpenDetailsModal = (details)=>{
     setOpenDetailsModal(true);
@@ -42,26 +35,6 @@ export function StructureTable({setOpenDetailsModal, setActualDevice, setCreateD
     setShowMenuMeasures(true);
     setActualDevice(details);
   }
-
-  const objectToList = (data) => {
-    let list = [];
-    for (let i = 0; i < data.length; i++) {
-      list.push(data[i]);
-    }
-
-    return list;
-  }
-
-  React.useEffect(()=>{    
-    getAllDevice().then(res =>{
-      let datos = objectToList(res.data);
-      setDevices({datos1: datos});
-    });
-  }, [reload]);
-
-  setInterval(() => {
-    setReload(!reload);
-  }, 10000);
   
   return(
     <Container className="mt-3">
@@ -82,24 +55,22 @@ export function StructureTable({setOpenDetailsModal, setActualDevice, setCreateD
           </tr>
         </thead>
         <tbody>
-          {console.log("DISPOSITIVOS RESIVIDO TABLA",devices.datos1 )}
-          {devices.datos1 !== undefined && console.log("DISPOSITIVOS RESIVIDO OBJETO",Object.entries(devices.datos1))}
-          { devices.datos1 !== undefined && (Object.entries(devices.datos1).map(data => (
+          { devices.datos1 !== undefined && (devices.datos1.map(data => (
             <tr>
               <td className="align-middle">
-                <h5>{data[1].id}</h5>
+                <h5>{data.id}</h5>
               </td>
               <td className="align-middle">
-                {data[1].nameDevice}
+                {data.nameDevice}
               </td>
               <td className="align-middle">
-                {data[1].locationDescription}
+                {data.locationDescription}
               </td>
               <td className="align-middle">
                 <Table>
                   <tbody>
-                    {(data[1] !== undefined && data[1] !== null)  && (data[1].sensors !== undefined && data[1].sensors !== null) && (Object.entries(data[1].sensors).map(sensor => (
-                      <Fila><td className="d-flex flex-column justify-content-center">{sensor[1].id}</td></Fila>
+                    {(data !== undefined && data !== null)  && (data.sensors !== undefined && data.sensors !== null) && (data.sensors.map(sensor => (
+                      <Fila><td className="d-flex flex-column justify-content-center">{sensor.id}</td></Fila>
                     )))}
                   </tbody>
                 </Table>
@@ -107,8 +78,8 @@ export function StructureTable({setOpenDetailsModal, setActualDevice, setCreateD
               <td className="align-middle">
                 <Table>
                   <tbody>
-                    {(data[1] !== undefined && data[1] !== null) && (data[1].sensors !== undefined && data[1].sensors !== null) &&(Object.entries(data[1].sensors).map(sensor =>(
-                      <Fila><td>{sensor[1].tipeSensors}</td></Fila>
+                    {(data !== undefined && data !== null) && (data.sensors !== undefined && data.sensors !== null) &&(data.sensors.map(sensor =>(
+                      <Fila><td>{sensor.tipeSensors}</td></Fila>
                     )))}
                   </tbody>
                 </Table>
@@ -116,14 +87,14 @@ export function StructureTable({setOpenDetailsModal, setActualDevice, setCreateD
               <td className="align-middle">
                 <Button
                   variant="outline-info"
-                  onClick={() => onOpenDetailsModal(data[1])}
+                  onClick={() => onOpenDetailsModal(data)}
                 >Ver detalle</Button>
               </td>
               <td className="align-middle">
-                <Button variant="outline-danger" onClick={() => onDeleteDevice(data[1].nameDevice)}>Eliminar</Button>
+                <Button variant="outline-danger" onClick={() => onDeleteDevice(data.nameDevice)}>Eliminar</Button>
               </td>
               <td className="align-middle">
-                <Button variant="outline-warning" onClick={() => onShowMeasuresModal(data[1])}> Ver Mediciones</Button>
+                <Button variant="outline-warning" onClick={() => onShowMeasuresModal(data)}> Ver Mediciones</Button>
               </td>
             </tr>
           )))}

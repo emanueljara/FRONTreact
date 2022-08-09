@@ -1,8 +1,8 @@
 import React from "react";
 import {Navbar, Nav, Form, FormControl, Button, Container} from 'react-bootstrap'
 
-import { Selector } from "../Buttons/Selector";
-import {TogglearButton} from "../Buttons/togglearButton";
+import { SelecTypeSensors } from "../Buttons/SelecTypeSensors";
+import {SelectTypeSearch} from "../Buttons/SelectTypeSearch";
 
 export function Header({selecTypeSearch,setSelecTypeSearch,devices,setDevices}) {
   return(
@@ -15,13 +15,13 @@ export function Header({selecTypeSearch,setSelecTypeSearch,devices,setDevices}) 
             <Navbar.Collapse id="basic-navbar-nav" className="justify-content-between">
               <Nav className="me-auto">
                 <div>
-                  <TogglearButton
+                  <SelectTypeSearch
                     selecTypeSearch={selecTypeSearch}
                     setSelecTypeSearch={setSelecTypeSearch}
                   />
                 </div>
                 <div className="ml-3">
-                  <Selector
+                  <SelecTypeSensors
                     selecTypeSearch={selecTypeSearch}
                     devices={devices}
                     setDevices={setDevices}
@@ -39,7 +39,7 @@ export function Header({selecTypeSearch,setSelecTypeSearch,devices,setDevices}) 
                     (selecTypeSearch === '3' || selecTypeSearch === '4') ? false: true
                   }
                 />
-                <Button variant="outline-success">Search</Button>
+                <Button variant="outline-success">Buscar</Button>
               </Form>
             </Navbar.Collapse>
           </Container>

@@ -1,16 +1,19 @@
+import React from "react";
 import './App.css';
 import { Header } from './Componentes/Nav/Header';
 import { StructureTable } from "./Componentes/Tables/StructureTable"
 import {CrearDispositivo} from "./Componentes/Formularios/CrearDispositivo";
 import {EditarDispositivo} from "./Componentes/Formularios/EditarDispositivo";
 import { CrearSensor } from './Componentes/Formularios/CrearSensor';
-import { useModal } from './hooks/useModal';
+import { useHookState } from './hooks/useHookState';
 import { VerMediciones } from './Componentes/Formularios/VerMediciones';
+import {Dispositivos} from './Peticiones/Dispositivos';
 
 import { GraficaLineas } from "./Componentes/Graficas/GraficaLineas";
 
 function App() {
 
+  const [reload, setReload] = React.useState(false);
   const {
     openDetailsModal,
     setOpenDetailsModal,
@@ -30,7 +33,29 @@ function App() {
     setSensorSelected,
     devices,
     setDevices
-  } = useModal();
+  } = useHookState();
+
+  const {getAllDevice} = Dispositivos();
+
+  const objectToList = (data) => {
+    let list = [];
+    for (let i = 0; i < data.length; i++) {
+      list.push(data[i]);
+    }
+
+    return list;
+  }
+
+  React.useEffect(()=>{    
+    getAllDevice().then(res =>{
+      let datos = objectToList(res.data);
+      setDevices({datos1: datos});
+    });
+  }, [reload]);
+
+  setInterval(() => {
+    setReload(!reload);
+  }, 10000);
 
   if(!showMeasurements){
     return (
@@ -82,7 +107,6 @@ function App() {
           setCreateDeviceModal={setCreateDeviceModal}
           setShowMenuMeasures={setShowMenuMeasures}
           devices={devices}
-          setDevices={setDevices}
         />
       </div>
     );

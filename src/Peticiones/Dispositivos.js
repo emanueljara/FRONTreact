@@ -1,40 +1,9 @@
-import React from "react";
 import axios from "axios"; 
 
 export function Dispositivos() {
 
-  const state={
-    form:{
-      nameDevice: "",
-      locationDescription: ""
-    }
-  }
-
-  let headers = {
-      //"User-Agent": "PostmanRuntime/7.29.0",
-      //Accept: "*/*",
-      //"Postman-Token":"6476c5e9-f72e-4ef4-841f-ed9a483f328c",
-      //Host:"localhost:3000",
-      //"Accept-Encoding":"gzip, deflate, br",
-      //Connection:"keep-alive"
-      //"Accept-Encoding":"keep-alive"
-      'Content-type': 'text/html; charset=UTF-8'  
-    };
-
   const urlBase = "http://localhost:3000/controlDevice/";
 
-
-  const getFetch= async()=>{
-    try {
-      const response = await fetch(urlBase+"getAll");
-      console.log(response);
-      const data = await response.data;
-      console.log({ data });
-    }
-    catch (e) {
-      console.log(e);
-    }
-  }
 
   const getAllDevice = async ()=>{
     const response = await axios.get(urlBase+"getAll");
@@ -46,8 +15,8 @@ export function Dispositivos() {
     return response;
   }
 
-  const getAllDeviceInOneLocation = ()=>{
-    return axios.get(urlBase+"getByLocation/"+this.state.form.locationDescription);
+  const getAllDeviceInOneLocation = (location)=>{
+    return axios.get(urlBase+"getByLocation/"+location);
   }
 
   const createDevice = async (device)=>{
@@ -65,18 +34,5 @@ export function Dispositivos() {
     return response;
   }
 
-  return{getAllDevice, getOneByName, createDevice, deleteDevice, updateDevice};
+  return{getAllDevice, getOneByName, createDevice, deleteDevice, updateDevice, getAllDeviceInOneLocation};
 }
-
-/*<Modal>
-    <ModalBody>
-        Estas seguro que deseas eliminar?
-    </ModalBody>
-    <ModalFooter>
-        <button>si</button>
-        <button>no</button>
-    </ModalFooter>
-</Modal>*/
-
-//const {getAllDevice} = Dispositos();
-//const a = getAllDevice();

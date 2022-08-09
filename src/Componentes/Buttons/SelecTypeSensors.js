@@ -2,7 +2,7 @@ import React from "react";
 import { Form } from "react-bootstrap";
 import { Sensore } from "../../Peticiones/Sensore";
 
-export function Selector({selecTypeSearch,devices,setDevices}) {
+export function SelecTypeSensors({selecTypeSearch,devices,setDevices}) {
 
   const [sensorTypes, setSensorTypes] = React.useState({});
   const [reload, setReload] = React.useState(false);
@@ -18,19 +18,10 @@ export function Selector({selecTypeSearch,devices,setDevices}) {
   }
 
   const searchDeviceWithType = (typeSensor) => {
-    console.log("ENTRADA TIPO SENSOR", typeSensor);
     getDeviceHaveOneTypeSensor(typeSensor).then(res => {
-      console.log("RESPONSE", res.data);
       let list = [];
-      res.data.map(obj => {
-        console.log("OBJETO TO LIST",obj.device );
-        return list.push(obj.device);
-      });
-      console.log("LA LISTA ES", list);
-      //objectToList(res.data[0].device);
-      console.log("SALIDA TIPO SENSOR", list);
+      res.data.map(obj =>  list.push(obj.device));
       setDevices({datos1: list});
-      console.log("DEVICES", devices);
     });
   }
 
@@ -50,8 +41,8 @@ export function Selector({selecTypeSearch,devices,setDevices}) {
   return(
       <Form.Select disabled={selecTypeSearch === '1' ? false: true} onChange={event =>{searchDeviceWithType(event.target.value)}}>
           <option value={"all"}>Escoger tipo de sensor</option>
-          {sensorTypes.datos1 !== undefined && (Object.entries(sensorTypes.datos1).map(sens => {
-            return(<option value={sens[1].type_sensors}>{sens[1].type_sensors}</option>);
+          {sensorTypes.datos1 !== undefined && (sensorTypes.datos1.map(sens => {
+            return(<option value={sens.type_sensors}>{sens.type_sensors}</option>);
           }))}
       </Form.Select>
   );
