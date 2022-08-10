@@ -1,8 +1,9 @@
 import React from "react";
-import {Navbar, Nav, Form, FormControl, Button, Container} from 'react-bootstrap'
+import {Navbar, Nav, Form, FormControl, Button, Container} from 'react-bootstrap';
 
 import { SelecTypeSensors } from "../Buttons/SelecTypeSensors";
 import {SelectTypeSearch} from "../Buttons/SelectTypeSearch";
+import {SearchDevice} from "./SearchDevice";
 
 export function Header({selecTypeSearch,setSelecTypeSearch,devices,setDevices}) {
   return(
@@ -29,18 +30,10 @@ export function Header({selecTypeSearch,setSelecTypeSearch,devices,setDevices}) 
                 </div>
               </Nav>
               
-              <Form className="d-flex">
-                <FormControl
-                  type="search"
-                  placeholder="Search"
-                  className="me-2"
-                  aria-label="Search"
-                  disabled={
-                    (selecTypeSearch === '3' || selecTypeSearch === '4') ? false: true
-                  }
-                />
-                <Button variant="outline-success">Buscar</Button>
-              </Form>
+              <SearchDevice
+                selecTypeSearch={selecTypeSearch}
+                setDevices={setDevices}
+              />
             </Navbar.Collapse>
           </Container>
         </Navbar>
