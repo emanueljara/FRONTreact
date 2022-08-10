@@ -12,6 +12,7 @@ import {
 import { Line } from 'react-chartjs-2';
 
 import { Mediciones } from "../../Peticiones/Mediciones";
+import { Col, Container, Row } from 'react-bootstrap';
 
 ChartJS.register(
   CategoryScale,
@@ -85,12 +86,6 @@ export function GraficaMedidas({actualDevice, sensorSelected}) {
               borderColor: 'rgb(255, 99, 132)',
               backgroundColor: 'rgba(255, 99, 132, 0.5)',
             },
-            // {
-            //   label: 'Dataset 2',
-            //   data: labels1.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
-            //   borderColor: 'rgb(53, 162, 235)',
-            //   backgroundColor: 'rgba(53, 162, 235, 0.5)',
-            // },
           ],
           labels: labels1
         });
@@ -111,7 +106,22 @@ export function GraficaMedidas({actualDevice, sensorSelected}) {
     console.log(options);
     console.log(data);
     return(
-      <Line options={options} data={data} />
+      <Container>
+        <Row>
+          <Col>
+            <Line 
+              options={options} 
+              data={data}
+            />
+          </Col>
+          <Col>
+            <Line 
+              options={options} 
+              data={data}
+            />
+          </Col>
+        </Row>
+      </Container>      
     )
   }
 }

@@ -9,7 +9,7 @@ import { useHookState } from './hooks/useHookState';
 import { VerMediciones } from './Componentes/Formularios/VerMediciones';
 import {Dispositivos} from './Peticiones/Dispositivos';
 
-import { GraficaLineas } from "./Componentes/Graficas/GraficaLineas";
+import { GraficaMedidas} from "./Componentes/Graficas/GraficaMedidas";
 
 function App() {
 
