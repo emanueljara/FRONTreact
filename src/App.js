@@ -51,11 +51,7 @@ function App() {
       let datos = objectToList(res.data);
       setDevices({datos1: datos});
     });
-  }, [reload]);
-
-  setInterval(() => {
-    setReload(!reload);
-  }, 10000);
+  }, [selecTypeSearch=='2']);
 
   if(!showMeasurements){
     return (

@@ -56,9 +56,10 @@ export function GraficaMedidas({actualDevice, sensorSelected}) {
 
   let response = {};
   let labels1 = [];
-  const [data, setData] = React.useState({});
+  const [data, setData] = React.useState([]);
   const [ready, setReady] = React.useState(false);
-
+  const {getAllOneSensor,getAllMeassurementOfAllSensorOfOneDevice} = Mediciones();
+  
   const options = {
     responsive: true,
     plugins: {
@@ -73,22 +74,42 @@ export function GraficaMedidas({actualDevice, sensorSelected}) {
   };
 
   React.useEffect(() =>{
-    const {getAllOneSensor} = Mediciones();
     if(sensorSelected.selected === 'One'){
       getAllOneSensor(sensorSelected.sensorId, actualDevice.nameDevice).then(resp =>{
         response = resp.data;
         labels1 = response.measurements.map(data => data.createDate);
-        setData({
+
+        setData([{
           datasets: [
             {
-              label: 'Datos',
+              label: response.tipeSensors,
               data: response.measurements.map(data => data.measurementValue),
               borderColor: 'rgb(255, 99, 132)',
               backgroundColor: 'rgba(255, 99, 132, 0.5)',
             },
           ],
           labels: labels1
+        }]);
+        setReady(true);
+      });
+    }
+    if(sensorSelected.selected === 'All'){
+      getAllMeassurementOfAllSensorOfOneDevice(actualDevice.nameDevice).then(resp => {
+        const listData = [];
+        resp.data.map(dato =>  {
+          listData.push({
+            datasets: [
+              {
+                label: dato.tipeSensors + ', '+ dato.id ,
+                data: dato.measurements.map(info => info.measurementValue),
+                borderColor: 'rgb(255, 99, 132)',
+                backgroundColor: 'rgba(255, 99, 132, 0.5)',
+              },
+            ],
+            labels: dato.measurements.map(fecha =>  fecha.createDate)
+          });
         });
+        setData(listData);
         setReady(true);
       });
     }
@@ -103,25 +124,21 @@ export function GraficaMedidas({actualDevice, sensorSelected}) {
       </div>
     )
   }else{
-    console.log(options);
-    console.log(data);
     return(
-      <Container>
+      data.map(datos => {
+        options.plugins.title.text='';
+      return <Container>
         <Row>
           <Col>
             <Line 
               options={options} 
-              data={data}
+              data={datos}
             />
           </Col>
-          <Col>
-            <Line 
-              options={options} 
-              data={data}
-            />
-          </Col>
+          
         </Row>
       </Container>      
+      })
     )
   }
 }

@@ -10,7 +10,7 @@ export function Mediciones() {
     }
 
     const getAllMeassurementOfAllSensorOfOneDevice = (Microcontroller)=>{
-        return axios.get(urlBase+"getAllOfAllSensor?nameDevice="+Microcontroller);
+        return axios.get(urlBase+"getAllMeasurementsOfAllSensorsOfOneDevice?nameDevice="+Microcontroller);
     }
 
     const getOneFindById = (idSensor)=>{
