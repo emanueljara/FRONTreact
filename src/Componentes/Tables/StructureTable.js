@@ -22,10 +22,10 @@ export function StructureTable({setOpenDetailsModal, setActualDevice, setCreateD
   }
 
   //Eliminar dispositivo
-  const onDeleteDevice = (name) => {
+  const onDeleteDevice = (id) => {
     const option = window.confirm("¿Eliminar dispositivo?");
     if (option) {
-      deleteDevice(name).then((resp)=>{
+      deleteDevice(id).then((resp)=>{
         console.log(resp);
       });
     }
@@ -91,7 +91,7 @@ export function StructureTable({setOpenDetailsModal, setActualDevice, setCreateD
                 >Ver detalle</Button>
               </td>
               <td className="align-middle">
-                <Button variant="outline-danger" onClick={() => onDeleteDevice(data.nameDevice)}>Eliminar</Button>
+                <Button variant="outline-danger" onClick={() => onDeleteDevice(data.id)}>Eliminar</Button>
               </td>
               <td className="align-middle">
                 <Button variant="outline-warning" onClick={() => onShowMeasuresModal(data)}> Ver Mediciones</Button>

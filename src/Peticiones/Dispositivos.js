@@ -29,8 +29,8 @@ export function Dispositivos() {
     return response;
   }
 
-  const deleteDevice = async (name)=>{
-    const response = await axios.delete(urlBase + "deleteDeviceByName/:"+name);
+  const deleteDevice = async (id)=>{
+    const response = axios.delete(urlBase + "deleteDeviceById/"+id);
     return response;
   }
 
