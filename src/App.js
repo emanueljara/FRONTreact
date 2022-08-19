@@ -10,6 +10,7 @@ import { VerMediciones } from './Componentes/Formularios/VerMediciones';
 import {Dispositivos} from './Peticiones/Dispositivos';
 
 import { GraficaMedidas} from "./Componentes/Graficas/GraficaMedidas";
+import { CrearAlertas } from "./Componentes/Formularios/CrearAlertas";
 
 function App() {
 
@@ -32,7 +33,11 @@ function App() {
     sensorSelected,
     setSensorSelected,
     devices,
-    setDevices
+    setDevices,
+    showModalAlarma,
+    setShowModalAlarma,
+    sensorActual, 
+    setsensorActual
   } = useHookState();
 
   const {getAllDevice} = Dispositivos();
@@ -79,6 +84,14 @@ function App() {
           />
         )}
 
+        {showModalAlarma && 
+          <CrearAlertas
+            setShowModalAlarma={setShowModalAlarma}
+            showModalAlarma={showModalAlarma}
+            sensorActual={sensorActual}
+          />
+        }
+
         {createSensorModal && (
           <CrearSensor 
             setCreateSensorModal={setCreateSensorModal}
@@ -103,6 +116,8 @@ function App() {
           setCreateDeviceModal={setCreateDeviceModal}
           setShowMenuMeasures={setShowMenuMeasures}
           devices={devices}
+          setShowModalAlarma={setShowModalAlarma}
+          setsensorActual={setsensorActual}
         />
       </div>
     );

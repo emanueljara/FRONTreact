@@ -8,7 +8,7 @@ import {Dispositivos} from "./../../Peticiones/Dispositivos";
 
 const defaulColumn=['id dispositivo','nombre','Localizacion', 'id sensor','sensores'];
 
-export function StructureTable({setOpenDetailsModal, setActualDevice, setCreateDeviceModal, setShowMenuMeasures,devices}) {
+export function StructureTable({setOpenDetailsModal, setActualDevice, setCreateDeviceModal, setShowMenuMeasures,devices,setShowModalAlarma,setsensorActual}) {
 
   const {deleteDevice} = Dispositivos();
 
@@ -19,6 +19,11 @@ export function StructureTable({setOpenDetailsModal, setActualDevice, setCreateD
 
   const onCreateDevice =  () => {
     setCreateDeviceModal(true);
+  }
+
+  const onOpenAlarm =  (idSensorActual) => {
+    setsensorActual(idSensorActual);
+    setShowModalAlarma(true);
   }
 
   //Eliminar dispositivo
@@ -79,7 +84,10 @@ export function StructureTable({setOpenDetailsModal, setActualDevice, setCreateD
                 <Table>
                   <tbody>
                     {(data !== undefined && data !== null) && (data.sensors !== undefined && data.sensors !== null) &&(data.sensors.map(sensor =>(
-                      <Fila><td>{sensor.tipeSensors}</td></Fila>
+                      <Fila>
+                        <td>{sensor.tipeSensors}</td>
+                        <td><Button variant="outline-warning" onClick={() => onOpenAlarm(sensor.id)}> Abrir</Button></td>
+                      </Fila>
                     )))}
                   </tbody>
                 </Table>
