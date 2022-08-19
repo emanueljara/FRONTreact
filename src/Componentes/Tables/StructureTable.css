@@ -1,0 +1,8 @@
+.iconito{
+  background-color: red;
+}
+
+.iconito:hover{
+  background-color: yellow;
+  cursor: pointer;
+}

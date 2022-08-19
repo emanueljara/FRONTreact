@@ -5,6 +5,11 @@ import {Columna} from "./Columna"
 import {Button} from "react-bootstrap"; 
 import {Dispositivos} from "./../../Peticiones/Dispositivos";
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
+
+import './StructureTable.css';
+
 
 const defaulColumn=['id dispositivo','nombre','Localizacion', 'id sensor','sensores'];
 
@@ -79,7 +84,14 @@ export function StructureTable({setOpenDetailsModal, setActualDevice, setCreateD
                 <Table>
                   <tbody>
                     {(data !== undefined && data !== null) && (data.sensors !== undefined && data.sensors !== null) &&(data.sensors.map(sensor =>(
-                      <Fila><td>{sensor.tipeSensors}</td></Fila>
+                      <Fila>
+                        <td>
+                          {sensor.tipeSensors}
+                        </td>
+                        <td>
+                          <FontAwesomeIcon icon={faTriangleExclamation} className='iconito'/>
+                        </td>
+                      </Fila>                      
                     )))}
                   </tbody>
                 </Table>
