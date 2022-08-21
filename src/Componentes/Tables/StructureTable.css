@@ -1,8 +1,8 @@
 .iconito{
-  background-color: red;
+  background-color: yellow;
 }
 
 .iconito:hover{
-  background-color: yellow;
+  background-color: red;
   cursor: pointer;
 }
